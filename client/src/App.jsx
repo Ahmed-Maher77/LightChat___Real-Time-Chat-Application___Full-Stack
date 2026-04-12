@@ -8,20 +8,20 @@ import NotFound from "./pages/NotFoundPage";
 // images
 import assets from "./assets/assets";
 
-const App = () => {
-    const router = createBrowserRouter([
-        {
-            path: "/",
-            element: <Layout />,
-            children: [
-                { path: "/", element: <Home /> },
-                { path: "/login", element: <Login /> },
-                { path: "/profile", element: <Profile /> },
-                { path: "*", element: <NotFound /> },
-            ],
-        },
-    ]);
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Layout />,
+        children: [
+            { path: "/", element: <Home /> },
+            { path: "/login", element: <Login /> },
+            { path: "/profile", element: <Profile /> },
+            { path: "*", element: <NotFound /> },
+        ],
+    },
+]);
 
+const App = () => {
     return (
         <div
             className="min-h-screen text-white bg-center bg-contain"
