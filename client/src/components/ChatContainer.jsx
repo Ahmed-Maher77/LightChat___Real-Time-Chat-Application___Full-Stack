@@ -1,11 +1,11 @@
 const ChatContainer = ({ onBack }) => {
     return (
-        <div id="ChatContainer" className="absolute inset-0 h-full w-full flex-1 min-w-0 sm:static sm:inset-auto z-10 backdrop-blur-2xl bg-gray-900">
+        <div id="ChatContainer" className="absolute inset-0 h-full w-full flex-1 min-w-0 sm:static sm:inset-auto z-10 backdrop-blur-3xl bg-gray-900/95 sm:bg-gray-900/50">
             <button
                 type="button"
                 aria-label="Back to chats"
                 onClick={onBack}
-                className="absolute left-4 top-4 z-20 rounded-full p-2 hover:bg-gray-700/60 transition sm:hidden"
+                className="absolute left-4 top-4 z-20 rounded-full p-2 hover:bg-gray-700/60 transition"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
