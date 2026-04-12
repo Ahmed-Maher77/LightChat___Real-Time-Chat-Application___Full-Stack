@@ -28,7 +28,7 @@ const SearchBar = ({ placeholder, onSearch, padding, borderDashed }) => {
                 id="search"
                 placeholder={placeholder}
                 value={searchValue}
-                className={`w-full gray-bg rounded-full ${padding || "px-4 py-2"} ps-11.5 pe-11 border-gray-600 focus:border-gray-400 outline-none text-stone-300 placeholder:text-stone-400 ${borderDashed && "border border-gray-600 border-dashed"}`}
+                className={`w-full gray-bg rounded-full ${padding || "px-4 py-2"} ps-11.5 pe-11 border-gray-600 focus:border-gray-400 outline-none text-stone-300 placeholder:text-stone-400 ${borderDashed ? "border border-gray-600 border-dashed" : ""}`}
                 onChange={handleChange}
             />
             {searchValue && (
