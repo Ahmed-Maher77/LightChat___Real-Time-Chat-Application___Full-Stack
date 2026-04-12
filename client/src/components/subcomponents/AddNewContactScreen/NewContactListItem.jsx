@@ -1,5 +1,3 @@
-import React from "react";
-
 const NewContactListItem = ({ contact }) => {
     const handleAddContact = () => {
         console.log(`Adding contact: ${contact.name}`);
