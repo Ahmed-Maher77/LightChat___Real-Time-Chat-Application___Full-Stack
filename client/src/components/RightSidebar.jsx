@@ -11,11 +11,11 @@ const RightSidebar = ({ selectedUser, onBack }) => {
                 type="button"
                 aria-label="Close user info"
                 onClick={onBack}
-                className="mb-3 rounded-full p-2 hover:bg-gray-700/60 transition xl:hidden"
+                className="mb-3 rounded-full p-2 hover:bg-gray-700/60 transition"
             >
                 <img
                     src={assets.x_icon}
-                    alt=""
+                    alt="Close user info"
                     className="h-6 w-6 cursor-pointer brightness-0 invert"
                 />
             </button>
