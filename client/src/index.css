@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+
+@import "tailwindcss";
+@import "./styles/animations.css";
+@import "./styles/pages.css";
+@import "./styles/components.css";
+
+/* ============= Global Styles ============= */
+body {
+    font-family: "Outfit", sans-serif;
+    scrollbar-width: 2px;
+    scrollbar-color: rgba(163, 163, 163, 0.8) transparent;
+}
+::-webkit-scrollbar {
+    width: 2px !important;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgba(163, 163, 163, 0.8);
+    border-radius: 9999px;
+}

@@ -1,0 +1,52 @@
+/* ============= Reusable Styles ============= */
+:root {
+    --primary-color: #2563eb;
+    --gray-bg: #282142;
+    --sidebar-bg: #3737371a;
+}
+
+
+
+/* colors */
+.primary-color {
+    color: var(--primary-color);
+}
+/* bgcolors */
+.gray-bg {
+    background-color: var(--gray-bg);
+}
+.sidebar-bg {
+    background-color: var(--sidebar-bg);
+}
+
+
+
+
+/* Transitions */
+.trans-3 {
+    transition: all 0.3s ease-in-out;
+}
+
+
+/* ============= Home Page ============= */
+.user-chat-picture {
+    position: relative;
+}
+.user-chat-picture::before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #16a34a;
+    border: 3.5px solid #000000;
+    left: -1px;
+    bottom: -6px;
+}
+.user-chat-picture:hover .user-chat-picture::before {
+    border-color: #364153;
+}
+
+.user-chat-picture.offline::before {
+    background-color: #6b7280;
+}
