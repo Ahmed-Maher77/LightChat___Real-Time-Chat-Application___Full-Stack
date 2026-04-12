@@ -6,7 +6,7 @@ import NoSelectedUserMsg from "../components/NoSelectedUserMsg";
 
 const HomePage = () => {
     const [selectedUser, setSelectedUser] = useState(null);
-    const [showUserInfo, setShowUserInfo] = useState(false);
+    const [showUserInfo, setShowUserInfo] = useState(true);
 
     return (
         <div id="HomePage" className="w-full min-h-screen">
