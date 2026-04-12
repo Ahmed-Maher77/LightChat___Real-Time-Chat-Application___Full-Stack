@@ -1,0 +1,59 @@
+@import "./animations.css";
+
+
+/* ================= Home Page ================= */
+@media (min-width: 785px) {
+    #HomePage {
+        padding: 1%;
+    }
+    #HomePage .home-page-layout {
+        border: 2px solid #6b7280;
+        height: calc(100vh - 2vw);
+    }
+}
+
+/* ================= Not Found Page ================= */
+.notfound-float-anim {
+    animation: notFoundFloat 4s ease-in-out infinite;
+}
+
+.notfound-blink-anim {
+    animation: notFoundBlink 3s ease-in-out infinite;
+}
+
+.notfound-scanline-anim {
+    animation: notFoundScanline 3s linear infinite;
+}
+
+.notfound-spin-slow {
+    animation: notFoundSpinSlow 12s linear infinite;
+}
+
+.notfound-glitch-wrap {
+    position: relative;
+    display: inline-block;
+}
+
+.notfound-glitch-wrap::before,
+.notfound-glitch-wrap::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+}
+
+.notfound-glitch-wrap::before {
+    color: #2563eb;
+    animation: notFoundGlitch1 3.5s infinite;
+}
+
+.notfound-glitch-wrap::after {
+    animation: notFoundGlitch2 3.5s 0.08s infinite;
+}
+
+.notfound-sweat-drop {
+    transform: translate(-8px, 16px);
+}

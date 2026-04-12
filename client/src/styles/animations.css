@@ -1,0 +1,142 @@
+@keyframes overlayFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes overlayFadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes overlayContentEnter {
+    0% {
+        opacity: 0;
+        transform: translateY(18px) scale(0.9);
+    }
+    65% {
+        opacity: 1;
+        transform: translateY(-2px) scale(1.03);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes overlayContentExit {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(10px) scale(0.985);
+    }
+}
+
+@keyframes chatContainerEnterFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-28px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes rightSidebarEnter {
+    0% {
+        opacity: 0;
+        transform: translateX(22px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes notFoundFloat {
+    0%,
+    100% {
+        transform: translateY(0px) rotate(-2deg);
+    }
+    50% {
+        transform: translateY(-12px) rotate(2deg);
+    }
+}
+
+@keyframes notFoundBlink {
+    0%,
+    90%,
+    100% {
+        transform: scaleY(1);
+    }
+    95% {
+        transform: scaleY(0.08);
+    }
+}
+
+@keyframes notFoundScanline {
+    0% {
+        top: -15%;
+    }
+    100% {
+        top: 115%;
+    }
+}
+
+@keyframes notFoundSpinSlow {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes notFoundGlitch1 {
+    0%,
+    100% {
+        clip-path: inset(0 0 88% 0);
+        transform: translate(-3px, 0);
+    }
+    25% {
+        clip-path: inset(35% 0 42% 0);
+        transform: translate(3px, 0);
+    }
+    50% {
+        clip-path: inset(68% 0 12% 0);
+        transform: translate(-3px, 0);
+    }
+    75% {
+        clip-path: inset(14% 0 72% 0);
+        transform: translate(3px, 0);
+    }
+}
+
+@keyframes notFoundGlitch2 {
+    0%,
+    100% {
+        clip-path: inset(80% 0 0 0);
+        transform: translate(3px, 0);
+        color: #f87171;
+    }
+    30% {
+        clip-path: inset(20% 0 58% 0);
+        transform: translate(-3px, 0);
+    }
+    65% {
+        clip-path: inset(52% 0 26% 0);
+        transform: translate(3px, 0);
+        color: #60a5fa;
+    }
+}
