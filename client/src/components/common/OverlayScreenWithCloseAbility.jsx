@@ -34,7 +34,7 @@ const OverlayScreenWithCloseAbility = ({ children, onClose }) => {
     return createPortal(
         <div
             id="overlay-screen-with-close-ability"
-            className={`fixed inset-0 bg-black/90 backdrop-blur-sm z-[9999] ${isClosing ? "overlay-fade-out" : "overlay-fade-in"}`}
+            className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-9999 ${isClosing ? "overlay-fade-out" : "overlay-fade-in"}`}
             onClick={handleOverlayClick}
         >
             <div className="overlay-modal-shell">

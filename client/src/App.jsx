@@ -5,8 +5,6 @@ import Home from "./pages/HomePage";
 import Login from "./pages/LoginPage";
 import Profile from "./pages/ProfilePage";
 import NotFound from "./pages/NotFoundPage";
-// images
-import assets from "./assets/assets";
 import AddNewContactProvider from "./hooks/contexts/AddNewContactProvider";
 
 const router = createBrowserRouter([
@@ -25,10 +23,8 @@ const router = createBrowserRouter([
 const App = () => {
     return (
         <AddNewContactProvider>
-            <div
-                className="min-h-screen text-white bg-center bg-contain"
-                style={{ backgroundImage: `url(${assets.bgImage})` }}
-            >
+            <div className="app-shell min-h-screen text-white">
+                <div className="app-shell-background" aria-hidden="true" />
                 <RouterProvider router={router} />
             </div>
         </AddNewContactProvider>

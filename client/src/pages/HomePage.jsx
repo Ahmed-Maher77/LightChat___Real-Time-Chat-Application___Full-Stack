@@ -10,7 +10,7 @@ const HomePage = () => {
 
     return (
         <div id="HomePage" className="w-full min-h-screen">
-            <div className="home-page-layout h-screen rounded-xl w-full backdrop-blur-2xl flex relative overflow-hidden">
+            <div className="home-page-layout h-screen rounded-xl w-full backdrop-blur-xs flex relative overflow-hidden">
                 <Sidebar onSelect={setSelectedUser} />
                 {selectedUser ? (
                     <>

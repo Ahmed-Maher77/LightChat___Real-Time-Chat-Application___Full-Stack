@@ -12,7 +12,7 @@ export default function NotFoundPage() {
     <div className="relative min-h-screen overflow-hidden">
       <NotFoundBackground />
 
-      <main className="relative mx-auto flex min-h-screen w-full items-center justify-center p-6 backdrop-blur-[15px] sm:p-12">
+      <main className="relative mx-auto flex min-h-screen w-full items-center justify-center p-6 backdrop-blur-sm sm:p-12">
         <section className="w-full text-center">
           <NotFoundBrand />
           <NotFoundFace />
