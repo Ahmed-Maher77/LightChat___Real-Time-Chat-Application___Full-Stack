@@ -6,8 +6,13 @@ const ActiveChatsItem = ({ isOnline, selectedUser, onSelect, userData }) => {
         onSelect(userData);
     };
 
+    const isTyping = Boolean(userData?.isTyping);
     const hasLastMessage = Boolean(userData?.lastMessage);
-    const previewMessage = hasLastMessage ? userData.lastMessage : "No chat history";
+    const previewMessage = isTyping
+        ? "Typing"
+        : hasLastMessage
+            ? userData.lastMessage
+            : "No chat history";
 
     return (
         <li className={`active-chat-item flex items-end gap-3 p-2 px-3 hover:bg-gray-700 ${selectedUser?.id === userData?.id ? "bg-gray-700" : ""} cursor-pointer rounded-lg trans-3`} onClick={handleSelectUser}>
@@ -29,9 +34,16 @@ const ActiveChatsItem = ({ isOnline, selectedUser, onSelect, userData }) => {
                 {/* ======= user's info ====== */}
                 <div className="info flex min-w-0 flex-col gap-1">
                     <h3 className="font-normal truncate">{userData?.name}</h3>
-                    <p className={`last-message-preview text-stone-400 text-xs ${hasLastMessage ? "" : "italic opacity-80"}`}>
-                        {previewMessage}
-                    </p>
+                    {isTyping ? (
+                        <p className="last-message-preview text-xs text-emerald-300">
+                            {previewMessage}
+                            <span className="animate-3dots">...</span>
+                        </p>
+                    ) : (
+                        <p className={`last-message-preview text-stone-400 text-xs ${hasLastMessage ? "" : "italic opacity-80"}`}>
+                            {previewMessage}
+                        </p>
+                    )}
                 </div>
             </article>
             
@@ -43,7 +55,7 @@ const ActiveChatsItem = ({ isOnline, selectedUser, onSelect, userData }) => {
                 <div className="date text-stone-400 text-[0.7rem]">{timeFormatter(userData?.time)}</div>
             </div>
 
-            {hasLastMessage ? (
+            {hasLastMessage && !isTyping ? (
                 <div className="active-chat-item-tooltip" role="tooltip">
                     {userData.lastMessage}
                 </div>
