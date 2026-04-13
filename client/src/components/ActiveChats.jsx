@@ -11,7 +11,7 @@ const activeChats = [
     { id: 5, name: "Charlie Davis", lastMessage: "Got it, thanks!", time: "2026-03-30T18:20:00.000Z", isOnline: false, profilePic: assets.profile_martin },
 ];
 
-const ActiveChats = ({ onSelect }) => {
+const ActiveChats = ({ selectedUser, onSelect }) => {
     return (
         <aside id="activeChatsContainer" className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden">
             <ul className="flex flex-col gap-1.5">
@@ -21,6 +21,7 @@ const ActiveChats = ({ onSelect }) => {
                             key={chat.id}
                             isOnline={chat.isOnline}
                             userData={chat}
+                            selectedUser={selectedUser}
                             onSelect={onSelect}
                         />
                     ))

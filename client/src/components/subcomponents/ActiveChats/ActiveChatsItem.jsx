@@ -1,7 +1,7 @@
 import generateAlternativeImage from "../../../utils/functions/generateAlternativeImage";
 import timeFormatter from "../../../utils/functions/timeFormatter";
 
-const ActiveChatsItem = ({ isOnline, onSelect, userData }) => {
+const ActiveChatsItem = ({ isOnline, selectedUser, onSelect, userData }) => {
     const handleSelectUser = () => {   // pass the user data here instead of just calling onSelect() and then use it in the ChatContainer to display the user's info and messages
         onSelect(userData);
     };
@@ -10,7 +10,7 @@ const ActiveChatsItem = ({ isOnline, onSelect, userData }) => {
     const previewMessage = hasLastMessage ? userData.lastMessage : "No chat history";
 
     return (
-        <li className="active-chat-item flex items-end gap-3 p-2 px-3 hover:bg-gray-700 cursor-pointer rounded-lg trans-3" onClick={handleSelectUser}>
+        <li className={`active-chat-item flex items-end gap-3 p-2 px-3 hover:bg-gray-700 ${selectedUser?.id === userData?.id ? "bg-gray-700" : ""} cursor-pointer rounded-lg trans-3`} onClick={handleSelectUser}>
             <article className="flex flex-1 min-w-0 items-center gap-3">
                 <div
                     className={`user-chat-picture w-12 shrink-0 ${isOnline ? "online" : "offline"}`}
