@@ -5,7 +5,7 @@ const RightSidebar = ({ selectedUser, onBack }) => {
     return (
         <div
             id="RightSidebar"
-            className="max-sm:w-full max-sm:min-w-full max-sm:max-w-full min-w-75 max-w-75 h-full p-5 shrink-0 backdrop-blur-3xl max-xl:absolute max-xl:top-0 max-xl:right-0 z-20"
+            className="max-sm:w-full max-sm:min-w-full max-sm:max-w-full min-w-75 max-w-75 h-full p-5 shrink-0 backdrop-blur-xs max-xl:absolute max-xl:top-0 max-xl:right-0 z-20"
         >
             <button
                 type="button"

@@ -1,6 +1,6 @@
 const ChatContainer = ({ onBack }) => {
     return (
-        <div id="ChatContainer" className="absolute inset-0 h-full w-full flex-1 min-w-0 sm:static sm:inset-auto z-10 backdrop-blur-3xl bg-gray-900/95 sm:bg-gray-900/50">
+        <div id="ChatContainer" className="absolute inset-0 h-full w-full flex-1 min-w-0 sm:static sm:inset-auto z-10 backdrop-blur-xs bg-gray-900/95 sm:bg-gray-900/50">
             <button
                 type="button"
                 aria-label="Back to chats"
