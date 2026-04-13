@@ -38,7 +38,7 @@ const AppLogo = () => {
                     className="menu-icon w-9 h-9 p-2 hover:bg-gray-600 rounded-full trans-3 cursor-pointer"
                 />
                 <ul
-                    className={`gray-bg rounded-lg p-2 border border-gray-600 absolute top-full left-0 mt-2 w-max ${isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"} transition z-10`}
+                    className={`gray-bg rounded-lg p-2 border border-gray-600 absolute top-full left-0 mt-2 w-max ${isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"} transition z-20`}
                 >
                     {/* ======= edit profile ======= */}
                     <li>
