@@ -1,4 +1,5 @@
-import assets from "../../../assets/assets";
+import generateAlternativeImage from "../../../utils/functions/generateAlternativeImage";
+import timeFormatter from "../../../utils/functions/timeFormatter";
 import truncateText from "../../../utils/functions/truncateText";
 
 const ActiveChatsItem = ({ isOnline, onSelect, userData }) => {
@@ -7,23 +8,23 @@ const ActiveChatsItem = ({ isOnline, onSelect, userData }) => {
     };
 
     return (
-        <li className="flex items-end justify-between p-2 px-[13px] hover:bg-gray-700 cursor-pointer rounded-lg trans-3" onClick={handleSelectUser}>
+        <li className="flex items-end justify-between p-2 px-3 hover:bg-gray-700 cursor-pointer rounded-lg trans-3" onClick={handleSelectUser}>
             <article className="flex items-center gap-3">
                 <div
-                    className={`user-chat-picture w-12 flex-shrink-0 ${isOnline ? "online" : "offline"}`}
+                    className={`user-chat-picture w-12 shrink-0 ${isOnline ? "online" : "offline"}`}
                 >
                     {/* ======= user's picture ====== */}
                     <img
-                        src={assets.profile_martin}
+                        src={userData?.profilePic || generateAlternativeImage(userData?.name)}
                         alt="user's picture"
                         className="w-full rounded-full"
                     />
                 </div>
                 {/* ======= user's info ====== */}
                 <div className="info flex flex-col gap-1">
-                    <h3 className="font-normal">Ahmed Maher</h3>
+                    <h3 className="font-normal">{userData?.name}</h3>
                     <p className="text-stone-400 text-xs">
-                        {truncateText("Hey, how are you?", 30)}
+                        {truncateText(userData?.lastMessage, 30)}
                     </p>
                 </div>
             </article>
@@ -33,8 +34,7 @@ const ActiveChatsItem = ({ isOnline, onSelect, userData }) => {
                 <span className="notification-label w-5 h-5 bg-(--primary-color) text-white text-xs flex items-center justify-center rounded-full">
                     3
                 </span>
-                <div className="date text-stone-400 text-[0.7rem]">12:00PM</div>{" "}
-                {/* this should be dynamic based on the message time: if yeaterday: "yesterday", if today: "12:00AM", otherwise: "14/10/2023" */}
+                <div className="date text-stone-400 text-[0.7rem]">{timeFormatter(userData?.time)}</div>
             </div>
         </li>
     );

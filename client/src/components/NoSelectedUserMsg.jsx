@@ -21,7 +21,7 @@ const NoSelectedUserMsg = () => {
 
         {/* Message Content */}
         <h2 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">No Conversation Selected</h2>
-        <p className="mx-auto mt-3 w-[80%] max-w-[500px] text-base leading-5 text-stone-400 lg:text-lg lg:leading-6">
+        <p className="mx-auto mt-3 w-[80%] max-w-125 text-base leading-5 text-stone-400 lg:text-lg lg:leading-6">
           Choose a contact from the sidebar to start chatting, or add a new contact from the menu.
         </p>
       </div>
