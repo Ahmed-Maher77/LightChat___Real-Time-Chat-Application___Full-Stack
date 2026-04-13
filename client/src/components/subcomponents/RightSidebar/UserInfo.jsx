@@ -15,6 +15,8 @@ const UserInfo = ({ user }) => {
                     isOnline={user?.isOnline}
                     showTooltip={false}
                     className="status-indicator--sidebar"
+                    mainCustomStyles={{left: "15px", bottom: "0px"}}
+                    childCustomStyles={{width: "22px", borderWidth: "4px", borderColor: "#2b3345"}}
                 />
             </div>
             <h2 className="font-normal text-lg mt-2 text-stone-300">

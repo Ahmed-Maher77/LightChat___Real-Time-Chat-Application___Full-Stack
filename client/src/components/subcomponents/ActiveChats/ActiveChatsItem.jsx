@@ -2,10 +2,11 @@ import generateAlternativeImage from "../../../utils/functions/generateAlternati
 import timeFormatter from "../../../utils/functions/timeFormatter";
 import UserStatusIndicator from "../../common/UserStatusIndicator";
 
-const ActiveChatsItem = ({ isOnline, selectedUser, onSelect, userData }) => {
+const ActiveChatsItem = ({ isOnline, selectedUser, setShowUserInfo, onSelect, userData }) => {
     const handleSelectUser = () => {
         // pass the user data here instead of just calling onSelect() and then use it in the ChatContainer to display the user's info and messages
         onSelect(userData);
+        setShowUserInfo(false);
     };
 
     const isTyping = Boolean(userData?.isTyping);
