@@ -5,17 +5,18 @@ const NoSelectedUserMsg = () => {
 
       <div className="relative w-full max-w-2xl text-center">
         {/* Message Icon */}
-        <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-gray-800/50 ring-1 ring-gray-700/60 sm:h-16 sm:w-16">
+        <div className="mx-auto mb-5 flex h-13 w-13 items-center justify-center rounded-full bg-gray-800/50 ring-1 ring-gray-700/60 sm:h-16 sm:w-16">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth="1.8"
-            className="h-6 w-6 text-stone-300 sm:h-8 sm:w-8"
+            strokeWidth="1.6"
+            className="h-7 w-7 text-stone-300 sm:h-8 sm:w-8"
             aria-hidden="true"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M7 8.5h10M7 12h6m-8.5 8 2.05-3.29A8 8 0 1 1 20 10.5a8 8 0 0 1-8 8c-1.2 0-2.34-.26-3.37-.72L4.5 20Z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 10.75h7.5M8.25 13.75h4.75" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.75c-4.83 0-8.75 3.31-8.75 7.39 0 2.08 1.02 3.96 2.66 5.3-.16 1.19-.75 2.3-1.65 3.14a.75.75 0 0 0 .49 1.3c2.03-.05 3.78-.72 5.03-1.83.7.16 1.44.25 2.22.25 4.83 0 8.75-3.31 8.75-7.39S16.83 4.75 12 4.75Z" />
           </svg>
         </div>
 
