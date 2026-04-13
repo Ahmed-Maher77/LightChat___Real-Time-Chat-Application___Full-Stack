@@ -7,6 +7,7 @@ import Profile from "./pages/ProfilePage";
 import NotFound from "./pages/NotFoundPage";
 // images
 import assets from "./assets/assets";
+import AddNewContactProvider from "./hooks/contexts/AddNewContactProvider";
 
 const router = createBrowserRouter([
     {
@@ -23,12 +24,14 @@ const router = createBrowserRouter([
 
 const App = () => {
     return (
-        <div
-            className="min-h-screen text-white bg-center bg-contain"
-            style={{ backgroundImage: `url(${assets.bgImage})` }}
-        >
-            <RouterProvider router={router} />
-        </div>
+        <AddNewContactProvider>
+            <div
+                className="min-h-screen text-white bg-center bg-contain"
+                style={{ backgroundImage: `url(${assets.bgImage})` }}
+            >
+                <RouterProvider router={router} />
+            </div>
+        </AddNewContactProvider>
     );
 };
 
