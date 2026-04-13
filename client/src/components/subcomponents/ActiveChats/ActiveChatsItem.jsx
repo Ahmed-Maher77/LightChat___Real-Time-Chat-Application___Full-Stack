@@ -30,7 +30,7 @@ const ActiveChatsItem = ({ isOnline, onSelect, userData }) => {
             </article>
             
             {/* ======= message details ====== */}
-            <div className="msg-details flex flex-col items-center gap-2">
+            <div className="msg-details flex flex-col items-end gap-2">
                 <span className="notification-label w-5 h-5 bg-(--primary-color) text-white text-xs flex items-center justify-center rounded-full">
                     3
                 </span>
