@@ -64,6 +64,33 @@
     }
 }
 
+@keyframes rightSidebarExit {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(24px);
+    }
+}
+
+@keyframes threeDots {
+    0% {
+        width: 0;
+    }
+    25% {
+        width: 0.35em;
+    }
+    50% {
+        width: 0.7em;
+    }
+    75%,
+    100% {
+        width: 1.05em;
+    }
+}
+
 @keyframes notFoundFloat {
     0%,
     100% {
