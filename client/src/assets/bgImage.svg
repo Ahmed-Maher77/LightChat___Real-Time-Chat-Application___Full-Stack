@@ -2,11 +2,14 @@
 <rect width="1920" height="1080" fill="#02040A"/>
 <rect width="1920" height="1080" fill="url(#base)"/>
 <g filter="url(#blur-large)">
+<ellipse cx="300" cy="170" rx="260" ry="190" fill="url(#left-top-glow)" opacity="0.72"/>
 <ellipse cx="1540" cy="210" rx="320" ry="250" fill="url(#top-glow)"/>
 <ellipse cx="430" cy="850" rx="440" ry="280" fill="url(#bottom-glow)"/>
 <ellipse cx="980" cy="520" rx="210" ry="150" fill="url(#center-glow)"/>
 </g>
 <g opacity="0.76">
+<circle cx="324" cy="224" r="126" stroke="url(#ring-left-top)" stroke-width="2"/>
+<circle cx="324" cy="224" r="84" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
 <circle cx="1520" cy="336" r="152" stroke="url(#ring-blue)" stroke-width="2.2"/>
 <circle cx="1520" cy="336" r="104" stroke="rgba(255,255,255,0.15)" stroke-width="1.6"/>
 <circle cx="418" cy="842" r="172" stroke="url(#ring-violet)" stroke-width="2.2"/>
@@ -44,6 +47,10 @@
 <stop stop-color="#5B86FF" stop-opacity="0.92"/>
 <stop offset="1" stop-color="#5B86FF" stop-opacity="0"/>
 </radialGradient>
+<radialGradient id="left-top-glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(300 170) rotate(90) scale(190 260)">
+<stop stop-color="#67C4FF" stop-opacity="0.68"/>
+<stop offset="1" stop-color="#67C4FF" stop-opacity="0"/>
+</radialGradient>
 <radialGradient id="bottom-glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(430 850) rotate(90) scale(280 440)">
 <stop stop-color="#8A6BFF" stop-opacity="0.82"/>
 <stop offset="1" stop-color="#8A6BFF" stop-opacity="0"/>
@@ -55,6 +62,10 @@
 <linearGradient id="ring-blue" x1="1360" y1="246" x2="1654" y2="470" gradientUnits="userSpaceOnUse">
 <stop stop-color="#D3E0FF" stop-opacity="0.16"/>
 <stop offset="1" stop-color="#5B86FF" stop-opacity="0.82"/>
+</linearGradient>
+<linearGradient id="ring-left-top" x1="204" y1="120" x2="456" y2="330" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D7F1FF" stop-opacity="0.14"/>
+<stop offset="1" stop-color="#67C4FF" stop-opacity="0.62"/>
 </linearGradient>
 <linearGradient id="ring-violet" x1="258" y1="724" x2="586" y2="944" gradientUnits="userSpaceOnUse">
 <stop stop-color="#E5DFFF" stop-opacity="0.12"/>
