@@ -1,6 +1,6 @@
 const NoSelectedUserMsg = () => {
   return (
-    <section className="hidden sm:flex relative flex-1 min-w-0 items-center justify-center overflow-hidden px-4 py-10 sm:px-6">
+    <section className="hidden sm:flex relative flex-1 min-w-0 items-center justify-center overflow-hidden px-4 py-10 sm:px-6 bg-[#0408124d]">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(120,120,120,0.12),transparent_60%)]" />
 
       <div className="relative w-full max-w-2xl text-center">
