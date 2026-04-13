@@ -6,12 +6,12 @@ import NoSelectedUserMsg from "../components/NoSelectedUserMsg";
 
 const HomePage = () => {
     const [selectedUser, setSelectedUser] = useState(null);
-    const [showUserInfo, setShowUserInfo] = useState(true);
+    const [showUserInfo, setShowUserInfo] = useState(false);
 
     return (
         <div id="HomePage" className="w-full min-h-screen">
             <div className="home-page-layout h-screen rounded-xl w-full backdrop-blur-xs flex relative overflow-hidden">
-                <Sidebar onSelect={setSelectedUser} />
+                <Sidebar selectedUser={selectedUser} onSelect={setSelectedUser} />
                 {selectedUser ? (
                     <>
                         <ChatContainer selectedUser={selectedUser} onBack={() => setSelectedUser(null)} />
