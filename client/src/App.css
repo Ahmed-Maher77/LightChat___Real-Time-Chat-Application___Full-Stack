@@ -34,6 +34,16 @@
     z-index: 2;
 }
 
+.status-indicator--sidebar {
+    left: 0.35rem;
+    bottom: 0.35rem;
+}
+
+.status-indicator--sidebar .status-dot {
+    width: 0.9rem;
+    border-color: #1f2937;
+}
+
 .status-dot {
     display: block;
     width: 15px;
