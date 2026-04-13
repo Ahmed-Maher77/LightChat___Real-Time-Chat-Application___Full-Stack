@@ -9,9 +9,11 @@ const MessageSenderBox = () => {
     const [message, setMessage] = useState("");
     const [showOptions, setShowOptions] = useState(false);
     const [isTextareaOverflowing, setIsTextareaOverflowing] = useState(false);
+    const [isTextareaMultiLine, setIsTextareaMultiLine] = useState(false);
     const [showAttachFileNotice, setShowAttachFileNotice] = useState(false);
     const optionsWrapperRef = useRef(null);
     const textareaRef = useRef(null);
+    const TEXTAREA_SINGLE_LINE_HEIGHT = 40;
     const TEXTAREA_MAX_HEIGHT = 128;
 
     useEffect(() => {
@@ -43,10 +45,11 @@ const MessageSenderBox = () => {
         setShowOptions(false);
 
         if (textareaRef.current) {
-            textareaRef.current.style.height = "40px";
+            textareaRef.current.style.height = `${TEXTAREA_SINGLE_LINE_HEIGHT}px`;
         }
 
         setIsTextareaOverflowing(false);
+        setIsTextareaMultiLine(false);
     };
 
     const handleMessageChange = (event) => {
@@ -54,10 +57,11 @@ const MessageSenderBox = () => {
         setMessage(nextValue);
 
         const textareaElement = event.target;
-        textareaElement.style.height = "40px";
+        textareaElement.style.height = `${TEXTAREA_SINGLE_LINE_HEIGHT}px`;
         textareaElement.style.height = `${Math.min(textareaElement.scrollHeight, TEXTAREA_MAX_HEIGHT)}px`;
 
         setIsTextareaOverflowing(textareaElement.scrollHeight > TEXTAREA_MAX_HEIGHT);
+        setIsTextareaMultiLine(textareaElement.scrollHeight > TEXTAREA_SINGLE_LINE_HEIGHT);
     };
 
     const handleTextareaKeyDown = (event) => {
@@ -92,6 +96,7 @@ const MessageSenderBox = () => {
                     onChange={handleMessageChange}
                     onKeyDown={handleTextareaKeyDown}
                     isTextareaOverflowing={isTextareaOverflowing}
+                    isTextareaMultiLine={isTextareaMultiLine}
                 />
 
                 <SendMessageButton disabled={!message.trim()} />
