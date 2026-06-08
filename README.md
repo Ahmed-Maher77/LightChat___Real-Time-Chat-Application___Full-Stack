@@ -2,6 +2,12 @@
 
 LightChat is a full-stack real-time chat application focused on fast one-to-one messaging, a responsive user experience, and a modern, maintainable architecture.
 
+---
+
+🌐 **Live Preview:** [https://light-chat-real-time-chat-applicati.vercel.app](https://light-chat-real-time-chat-applicati.vercel.app/)
+
+---
+
 ## Overview
 
 This repository is organized as a full-stack project with separate frontend and backend folders:
