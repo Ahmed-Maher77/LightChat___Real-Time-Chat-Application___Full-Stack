@@ -5,6 +5,7 @@ import AppLogo from "./subcomponents/Sidebar/AppLogo";
 const Sidebar = ({ selectedUser, setShowUserInfo, onSelect }) => {
     const handleSearchChange = (value) => {
         console.log(value);
+        // fetch matched users from the server and update the ActiveChats
     }
 
     return (

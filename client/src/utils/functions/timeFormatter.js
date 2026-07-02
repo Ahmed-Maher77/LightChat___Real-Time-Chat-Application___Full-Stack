@@ -1,3 +1,4 @@
+// ========== Check if two dates are on the same day ==========
 const isSameDay = (firstDate, secondDate) => {
     return (
         firstDate.getFullYear() === secondDate.getFullYear() &&
@@ -6,6 +7,7 @@ const isSameDay = (firstDate, secondDate) => {
     );
 };
 
+// ========= Format date as "DD/MM/YYYY" ==========
 const formatAsDayMonthYear = (date) => {
     const day = String(date.getDate()).padStart(2, "0");
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -14,6 +16,18 @@ const formatAsDayMonthYear = (date) => {
     return `${day}/${month}/${year}`;
 };
 
+
+// ======== Format date as "HH:MM" ==========
+export function formatAsHourMinute(messageDate) {
+    return new Date(messageDate).toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+    })
+
+}
+
+// ======== Format message time ==========
 function timeFormatter(value) {
     if (!value) {
         return "";
@@ -44,7 +58,7 @@ function timeFormatter(value) {
         return "yesterday";
     }
 
-    return formatAsDayMonthYear(messageDate);
+    return formatAsHourMinute(messageDate) + " - " + formatAsDayMonthYear(messageDate);
 }
 
 export default timeFormatter;

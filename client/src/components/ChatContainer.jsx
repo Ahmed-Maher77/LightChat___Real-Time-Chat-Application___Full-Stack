@@ -13,7 +13,7 @@ const ChatContainer = ({ selectedUser, onBack, onToggleUserInfo }) => {
                 onBack={onBack}
                 onToggleUserInfo={onToggleUserInfo}
             />
-            <MessagesContainer />
+            <MessagesContainer selectedUser={selectedUser} />
             <MessageSenderBox />
         </div>
     );

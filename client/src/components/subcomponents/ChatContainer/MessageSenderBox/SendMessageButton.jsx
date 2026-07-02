@@ -8,7 +8,7 @@ const SendMessageButton = ({ disabled }) => {
             className="cursor-pointer opacity-95 transition hover:scale-105 hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
             disabled={disabled}
         >
-            <img src={assets.send_button} alt="" className="h-10 w-10" />
+            <img src={assets.send_button} alt="" className="h-12 w-12" />
         </button>
     );
 };

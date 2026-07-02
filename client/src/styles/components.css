@@ -76,3 +76,25 @@ input[type="search"]::-webkit-search-results-decoration {
         animation: none;
     }
 }
+
+/* ================= Messages Container ================= */
+.message {
+    position: relative;
+}
+.message::before {
+    content: "";
+    position: absolute;
+    left: -15.5px;
+    top: 12px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent var(--color-gray-800) transparent transparent;
+}
+.message.right::before {
+    right: -15.5px;
+    left: auto;
+    border-color: transparent transparent transparent var(--color-gray-800);
+}
+.message.no-arrow::before {
+    border-width: 0;
+}

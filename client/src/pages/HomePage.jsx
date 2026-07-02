@@ -9,7 +9,7 @@ const RIGHT_SIDEBAR_EXIT_MS = 220;
 const HomePage = () => {
     const [selectedUser, setSelectedUser] = useState(null);
     const [showUserInfo, setShowUserInfo] = useState(false);
-    const [isRightSidebarClosing, setIsRightSidebarClosing] = useState(false);
+    const [isRightSidebarClosing, setIsRightSidebarClosing] = useState(false);    
 
     const handleSelectUser = (user) => {
         setSelectedUser(user);

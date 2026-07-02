@@ -6,6 +6,7 @@ import Login from "./pages/LoginPage";
 import Profile from "./pages/ProfilePage";
 import NotFound from "./pages/NotFoundPage";
 import AddNewContactProvider from "./hooks/contexts/AddNewContactProvider";
+import UserDataProvider from "./context/userDataProvider";
 
 const router = createBrowserRouter([
     {
@@ -23,10 +24,12 @@ const router = createBrowserRouter([
 const App = () => {
     return (
         <AddNewContactProvider>
-            <div className="app-shell min-h-screen text-white">
-                <div className="app-shell-background" aria-hidden="true" />
-                <RouterProvider router={router} />
-            </div>
+            <UserDataProvider>
+                <div className="app-shell min-h-screen text-white">
+                    <div className="app-shell-background" aria-hidden="true" />
+                    <RouterProvider router={router} />
+                </div>
+            </UserDataProvider>
         </AddNewContactProvider>
     );
 };

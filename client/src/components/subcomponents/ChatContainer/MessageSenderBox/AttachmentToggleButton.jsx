@@ -1,10 +1,11 @@
-const AttachmentToggleButton = ({ onToggle }) => {
+const AttachmentToggleButton = ({ onToggle, disabled }) => {
     return (
         <button
             type="button"
             aria-label="Add attachment"
             onClick={onToggle}
-            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-gray-800/80 text-stone-200 transition hover:bg-gray-700/80"
+            className={`flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-gray-800/80 text-stone-200 transition hover:bg-gray-700/80 ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+            disabled={disabled}
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -1,18 +1,24 @@
+import { useRef } from "react";
+
 const menuItemClass = "flex w-full cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm text-stone-200 transition hover:bg-gray-700/80";
 
-const AttachmentOptionsMenu = ({ onAttachFile }) => {
+const AttachmentOptionsMenu = ({ onAttachFile, onAttachImage }) => {
+    const fileInputRef = useRef(null);
+    const imageInputRef = useRef(null);
+
     return (
         <div className="absolute bottom-12 left-0 w-44 overflow-hidden rounded-xl border border-white/12 bg-gray-900/96 p-1.5 shadow-2xl shadow-black/40">
             {/* ====== Attach File ====== */}
-            <button type="button" className={menuItemClass} onClick={onAttachFile}>
+            <button type="button" className={menuItemClass} onClick={() => fileInputRef.current?.click()}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-[1.1rem] w-[1.1rem]" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21.44 11.05l-8.49 8.49a5 5 0 01-7.07-7.07l8.49-8.49a3.5 3.5 0 014.95 4.95l-8.49 8.49a2 2 0 01-2.83-2.83l7.78-7.78" />
                 </svg>
                 <span>Attach File</span>
             </button>
+            <input type="file" name="file" ref={fileInputRef} className="hidden" accept="application/pdf, application/vnd.ms-excel, text/plain, application/msword, .doc, .docx" onChange={onAttachFile} />
 
             {/* =========== Attach Image =========== */}
-            <button type="button" className={menuItemClass}>
+            <button type="button" className={menuItemClass} onClick={() => imageInputRef.current?.click()}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-[1.1rem] w-[1.1rem]" aria-hidden="true">
                     <rect x="3" y="5" width="18" height="14" rx="2" ry="2" />
                     <circle cx="9" cy="10" r="1.5" />
@@ -20,6 +26,7 @@ const AttachmentOptionsMenu = ({ onAttachFile }) => {
                 </svg>
                 <span>Attach Image</span>
             </button>
+            <input type="file" name="file" ref={imageInputRef} className="hidden" accept="image/*" onChange={onAttachImage} />
 
         
             {/* =========== Record Voice =========== */}
