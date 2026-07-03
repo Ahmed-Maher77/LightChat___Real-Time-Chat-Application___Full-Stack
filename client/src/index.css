@@ -27,3 +27,7 @@ body {
 #messages-container ul::-webkit-scrollbar {
     width: 0px;
 }
+#media-section section {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(163, 163, 163, 0.75) transparent;
+}

@@ -5,6 +5,7 @@ import AttachFileNotice from "./MessageSenderBox/AttachFileNotice";
 import MessageInputTextarea from "./MessageSenderBox/MessageInputTextarea";
 import SendMessageButton from "./MessageSenderBox/SendMessageButton";
 import pic4 from "../../../assets/pic4.png";
+import fallbackFileImage from "../../../assets/fallbackFileImage.png";
 
 const MessageSenderBox = () => {
     const [message, setMessage] = useState("");
@@ -135,10 +136,10 @@ const MessageSenderBox = () => {
                 className="absolute bottom-0 left-0 z-10 flex flex-col w-full min-h-0 flex-1 backdrop-blur-sm sm:backdrop-blur-xs bg-gray-900/80"
             >
                 {/* ====== Selected File Preview ====== */}
-                {(filesUrl.imageUrl || filesUrl.fileUrl) && (
+                {(filesUrl.imageUrl || filesUrl.fileName) && (
                     <figure className="w-[90%] mx-auto pt-6">
                         <button className="px-3 py-2 bg-white text-red-500 rounded-md mb-3 hover:bg-gray-200 transition duration-300 cursor-pointer" onClick={clearSelectedFiles}>Cancel</button>
-                        <img src={filesUrl.imageUrl || filesUrl.fileUrl} alt="" className="block h-[400px] max-h-full w-fit mx-auto object-cover" />
+                        <img src={filesUrl.imageUrl || fallbackFileImage} alt="" className="block h-[400px] max-h-full w-fit mx-auto object-cover" />
                         <p className="text-center mt-1">{filesUrl.fileName || filesUrl.imageName || "Selected File"}</p>
                     </figure>
                 )}

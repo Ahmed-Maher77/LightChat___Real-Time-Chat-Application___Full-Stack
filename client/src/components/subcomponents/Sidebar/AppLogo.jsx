@@ -3,11 +3,13 @@ import assets from "../../../assets/assets";
 import { Link } from "react-router-dom";
 import AddNewContactScreen from "../../AddNewContactScreen";
 import useAddNewContact from "../../../hooks/contexts/useAddNewContact";
+import { useUserDataContext } from "../../../context/userDataProvider";
 
 const AppLogo = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { showAddNewContactScreen, setShowAddNewContactScreen } =
         useAddNewContact();
+    const { logout } = useUserDataContext();
 
     // close the menu when clicking outside of it
     useEffect(() => {
@@ -76,7 +78,7 @@ const AppLogo = () => {
                     </li>
                     {/* ======= logout ======= */}
                     <li>
-                        <button className="hover:bg-gray-600 p-2 px-3 rounded-lg transition w-full text-left cursor-pointer flex items-center gap-3 justify-between text-red-500">
+                        <button className="hover:bg-gray-600 p-2 px-3 rounded-lg transition w-full text-left cursor-pointer flex items-center gap-3 justify-between text-red-500" onClick={logout}>
                             <span>Logout</span>
                             <img
                                 src={assets.quit_icon}

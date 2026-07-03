@@ -10,8 +10,17 @@ const UserDataProvider = ({ children }) => {
         email: "TtG8n@example.com",
     });
 
+    const logout = () => {
+        setUserData({
+            id: null,
+            picture: null,
+            name: null,
+            email: null,
+        });
+    };
+
     return (
-        <UserDataContext.Provider value={{ userData, setUserData }}>
+        <UserDataContext.Provider value={{ userData, setUserData, logout }}>
             {children}
         </UserDataContext.Provider>
     );
