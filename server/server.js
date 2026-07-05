@@ -5,18 +5,23 @@ import http from "node:http";
 import connectDB from "./lib/db.js";
 import * as userController from "./controllers/user.controller.js";
 import registerSchema from "./validation/registerSchema.js";
+import loginSchema from "./validation/loginSchema.js";
 import validateRequest from "./validation/validateRequest.js";
 import cookieParser from "cookie-parser";
+import protectedRoute from "./middlewares/auth.js";
+
 
 // ============== Create Express App and Http Server ==============
 const app = express();
 const server = http.createServer(app);
 dotenv.config();
 
+
 // ============== Middlewares ==============
 app.use(express.json({ limit: "4mb" }));
 app.use(cors()); // allow all origins
 app.use(cookieParser()); // parse cookies
+
 
 // ============== Routes ==============
 // Health check route
@@ -31,17 +36,46 @@ app.post(
     userController.signup,
 );
 
+// Login route
+app.post(
+    "/api/auth/login",
+    validateRequest(loginSchema),
+    userController.login,
+);
+
+// profile route
+app.get(
+    "/api/profile",
+    protectedRoute,
+    userController.profile,
+);
+
+// check authentication route
+app.get(
+    "/api/auth/checkAuth",
+    protectedRoute,
+    userController.checkAuth,
+);
+
+// update user profile route
+app.put(
+    "/api/auth/updateProfile",
+    protectedRoute,
+    userController.updateProfile,
+);
+
 // Not found route
 app.use((req, res) => {
     res.status(404).json({ message: "Route not found", status: "Not Found" });
 });
 
 // catch all errors
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
     return res
         .status(err.statusCode || 500)
         .json({ message: err.message || "Internal Server Error" });
 });
+
 
 // ============== Start the server ==============
 await connectDB();

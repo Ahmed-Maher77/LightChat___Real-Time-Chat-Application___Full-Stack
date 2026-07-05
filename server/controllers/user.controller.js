@@ -1,16 +1,21 @@
 import User from "../models/User.model.js";
 import bcrypt from "bcryptjs";
 import generateToken from "../utils/generate-token.js";
+import AppError from "../utils/global-error-handler.js";
+import createCookie from "../utils/create-cookie.js";
+import cloudinary from "../lib/cloudinary.js";
 
 // Signup new user
-const signup = async (req, res) => {
+const signup = async (req, res, next) => {
     const { fullName, email, password, bio } = req.body;
 
     try {
         // check if user already exists
-        const existingUser = await User.findOne({ email });
+        const existingUser = await User.findOne({ email }, null, {
+            lean: true,
+        });
         if (existingUser) {
-            return new AppError("User already exists", 400);
+            return next(new AppError("User already exists", 400));
         }
 
         // hash password
@@ -32,7 +37,7 @@ const signup = async (req, res) => {
         });
 
         // create cookie with jwt token
-        createCookie("lightchat_access_token", token);
+        createCookie(res, "lightchat_access_token", token);
 
         // return response with user data and token
         return res.status(201).json({
@@ -50,8 +55,123 @@ const signup = async (req, res) => {
         });
     } catch (error) {
         console.error("Error during user signup:", error);
-        return new AppError(error.message || "Internal server error", 500);
+        return next(
+            new AppError(error.message || "Internal server error", 500),
+        );
     }
 };
 
-export { signup };
+// Login a user
+const login = async (req, res, next) => {
+    const { email, password } = req.body;
+
+    try {
+        // check if user already exists
+        const existingUser = await User.findOne({ email }, null, {
+            lean: true,
+        });
+        if (!existingUser) {
+            return next(new AppError("Invalid Email or Password", 404));
+        }
+
+        // compare password
+        const isMatch = await bcrypt.compare(password, existingUser.password);
+        if (!isMatch) {
+            return next(new AppError("Invalid Email or Password", 404));
+        }
+
+        // create jwt token
+        const token = generateToken({
+            id: existingUser._id,
+            email: existingUser.email,
+        });
+
+        // create cookie with jwt token
+        createCookie(res, "lightchat_access_token", token);
+
+        // return response with user data and token
+        return res.status(201).json({
+            message: "User logged in successfully",
+            user: {
+                id: existingUser._id,
+                fullName: existingUser.fullName,
+                email: existingUser.email,
+                bio: existingUser.bio,
+                profilePic: existingUser.profilePic,
+                createdAt: existingUser.createdAt,
+                updatedAt: existingUser.updatedAt,
+            },
+            accessToken: token,
+        });
+    } catch (error) {
+        console.error("Error during user login:", error);
+        return next(
+            new AppError(error.message || "Internal server error", 500),
+        );
+    }
+};
+
+const profile = (req, res) => {
+    return res.status(200).json({
+        message: "User profile fetched successfully",
+        user: req.user,
+    });
+};
+
+const checkAuth = (req, res) => {
+    return res
+        .status(200)
+        .json({ message: "User is authenticated", user: req.user });
+};
+
+const updateProfile = async (req, res, next) => {
+    try {
+        const { fullName, bio, profilePic } = req.body;
+
+        if (!fullName && !bio && !profilePic) {
+            return next(
+                new AppError("Append at least one field to update", 400),
+            );
+        }
+
+        // check if user exists
+        const existingUser = await User.findById(
+            req.user.id,
+            { password: 0 },
+            { lean: true },
+        );
+        if (!existingUser) {
+            return next(new AppError("Unauthorized: User not found", 401));
+        }
+
+        const upload = await cloudinary.uploader.upload(profilePic, {
+            folder: "lightchat/profile-pics",
+        });
+        const profilePicUrl = upload.secure_url;
+
+        // update the user data in db
+        const updatedUser = await User.updateOne(
+            { _id: req.user.id },
+            {
+                fullName: fullName || existingUser.fullName,
+                bio: bio || existingUser.bio,
+                profilePic: profilePicUrl || existingUser.profilePic,
+            },
+        );
+
+        // return the updated user data
+        return res.status(200).json({
+            message: "User profile updated successfully",
+            user: {
+                id: updatedUser._id,
+                fullName: updatedUser.fullName,
+                bio: updatedUser.bio,
+                profilePic: profilePicUrl,
+            },
+        });
+    } catch (err) {
+        return next(new AppError(err.message || "Internal server error", 500));
+    }
+};
+
+export { signup, login, profile, checkAuth, updateProfile };

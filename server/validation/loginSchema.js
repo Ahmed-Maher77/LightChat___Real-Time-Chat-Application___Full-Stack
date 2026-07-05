@@ -13,3 +13,6 @@ const loginSchema = {
         errorMessage: "Password must be at least 6 characters long"
     }
 }
+
+
+export default loginSchema;
