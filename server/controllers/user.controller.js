@@ -41,6 +41,7 @@ const signup = async (req, res, next) => {
 
         // return response with user data and token
         return res.status(201).json({
+            success: true, 
             message: "User registered successfully",
             user: {
                 id: newUser._id,
@@ -91,6 +92,7 @@ const login = async (req, res, next) => {
 
         // return response with user data and token
         return res.status(201).json({
+            success: true, 
             message: "User logged in successfully",
             user: {
                 id: existingUser._id,
@@ -113,6 +115,7 @@ const login = async (req, res, next) => {
 
 const profile = (req, res) => {
     return res.status(200).json({
+        success: true, 
         message: "User profile fetched successfully",
         user: req.user,
     });
@@ -121,7 +124,7 @@ const profile = (req, res) => {
 const checkAuth = (req, res) => {
     return res
         .status(200)
-        .json({ message: "User is authenticated", user: req.user });
+        .json({ success: true, message: "User is authenticated", user: req.user });
 };
 
 const updateProfile = async (req, res, next) => {
@@ -157,10 +160,12 @@ const updateProfile = async (req, res, next) => {
                 bio: bio || existingUser.bio,
                 profilePic: profilePicUrl || existingUser.profilePic,
             },
+            { new: true, lean: true },
         );
 
         // return the updated user data
         return res.status(200).json({
+            success: true, 
             message: "User profile updated successfully",
             user: {
                 id: updatedUser._id,

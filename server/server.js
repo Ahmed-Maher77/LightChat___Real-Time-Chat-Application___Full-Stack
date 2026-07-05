@@ -8,7 +8,8 @@ import registerSchema from "./validation/registerSchema.js";
 import loginSchema from "./validation/loginSchema.js";
 import validateRequest from "./validation/validateRequest.js";
 import cookieParser from "cookie-parser";
-import protectedRoute from "./middlewares/auth.js";
+import userRouter from "./routes/user.routes.js";
+import messageRouter from "./routes/message.routes.js";
 
 
 // ============== Create Express App and Http Server ==============
@@ -26,54 +27,31 @@ app.use(cookieParser()); // parse cookies
 // ============== Routes ==============
 // Health check route
 app.get("/healthz", (req, res) => {
-    res.status(200).json({ message: "Server is healthy", status: "OK" });
+    res.status(200).json({ success: true, message: "Server is healthy", status: "OK" });
 });
 
-// Signup route
-app.post(
-    "/api/auth/register",
-    validateRequest(registerSchema),
-    userController.signup,
+
+// User/Authentication routes
+app.use(
+    "/api/auth",
+    userRouter
 );
 
-// Login route
-app.post(
-    "/api/auth/login",
-    validateRequest(loginSchema),
-    userController.login,
-);
+// message routes
+app.use("/api/messages", messageRouter);
 
-// profile route
-app.get(
-    "/api/profile",
-    protectedRoute,
-    userController.profile,
-);
 
-// check authentication route
-app.get(
-    "/api/auth/checkAuth",
-    protectedRoute,
-    userController.checkAuth,
-);
-
-// update user profile route
-app.put(
-    "/api/auth/updateProfile",
-    protectedRoute,
-    userController.updateProfile,
-);
 
 // Not found route
 app.use((req, res) => {
-    res.status(404).json({ message: "Route not found", status: "Not Found" });
+    res.status(404).json({ success: false, message: "Route not found", status: "Not Found" });
 });
 
 // catch all errors
 app.use((err, req, res, next) => {
     return res
         .status(err.statusCode || 500)
-        .json({ message: err.message || "Internal Server Error" });
+        .json({ success: false,  message: err.message || "Internal Server Error" });
 });
 
 
