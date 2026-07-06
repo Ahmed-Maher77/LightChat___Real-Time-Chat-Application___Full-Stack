@@ -1,13 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import AttachmentToggleButton from "./MessageSenderBox/AttachmentToggleButton";
 import AttachmentOptionsMenu from "./MessageSenderBox/AttachmentOptionsMenu";
 import AttachFileNotice from "./MessageSenderBox/AttachFileNotice";
 import MessageInputTextarea from "./MessageSenderBox/MessageInputTextarea";
 import SendMessageButton from "./MessageSenderBox/SendMessageButton";
-import pic4 from "../../../assets/pic4.png";
 import fallbackFileImage from "../../../assets/fallbackFileImage.png";
+import { ChatContext } from "../../../../context/ChatContext";
 
 const MessageSenderBox = () => {
+    const { sendMessage } = useContext(ChatContext);
     const [message, setMessage] = useState("");
     const [filesUrl, setFilesUrl] = useState({
         imageUrl: null,
@@ -46,9 +47,9 @@ const MessageSenderBox = () => {
         };
     }, [showOptions]);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        if (!message.trim()) {
+        if (!message.trim() && !filesUrl.imageUrl && !filesUrl.fileUrl) {
             return;
         }        
         setShowOptions(false);
@@ -60,14 +61,12 @@ const MessageSenderBox = () => {
         setIsTextareaOverflowing(false);
         setIsTextareaMultiLine(false);
 
-        // create a form data object to send the message and files
-        const formData = new FormData(formRef.current);
-        formData.set("message", message);
-        formData.set("file", filesUrl.fileUrl);
-        formData.set("image", filesUrl.imageUrl);
-        console.log([...formData.entries()]);
-
-        // send to backend server
+        // send to backend server via sendMessage context function
+        await sendMessage({
+            text: message.trim(),
+            image: filesUrl.imageUrl,
+            file: filesUrl.fileUrl
+        });
 
         setMessage("");
 
@@ -157,6 +156,7 @@ const MessageSenderBox = () => {
                             <AttachmentOptionsMenu
                                 onAttachFile={handleAttachFileClick}
                                 onAttachImage={handleAttachImageClick}
+                                setShowAttachFileNotice={setShowAttachFileNotice}
                             />
                         ) : null}
                     </div>

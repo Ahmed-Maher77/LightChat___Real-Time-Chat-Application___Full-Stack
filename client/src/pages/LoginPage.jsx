@@ -17,12 +17,13 @@ const LoginPage = () => {
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
+        const { fullName, email, password, bio } = formData;
         if (currentState === "Sign Up" && !isDataSubmitted) {
             setIsDataSubmitted(true);
             return;
         }
         setIsDataSubmitted(true);
-        login(currentState === "Sign up" ? "signup" : "login", {
+        login(currentState === "Sign Up" ? "signup" : "login", {
             fullName, email, password, bio
         })
     };

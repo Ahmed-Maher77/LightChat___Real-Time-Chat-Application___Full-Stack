@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import ChatContainer from "../components/ChatContainer";
 import RightSidebar from "../components/RightSidebar";
 import Sidebar from "../components/Sidebar";
 import NoSelectedUserMsg from "../components/NoSelectedUserMsg";
+import { ChatContext } from "../../context/ChatContext";
 
 const RIGHT_SIDEBAR_EXIT_MS = 220;
 
 const HomePage = () => {
-    const [selectedUser, setSelectedUser] = useState(null);
+    const { selectedUser, setSelectedUser } = useContext(ChatContext);
     const [showUserInfo, setShowUserInfo] = useState(false);
     const [isRightSidebarClosing, setIsRightSidebarClosing] = useState(false);    
 
@@ -60,7 +61,7 @@ const HomePage = () => {
     return (
         <div id="HomePage" className="w-full min-h-screen">
             <div className="home-page-layout h-screen rounded-xl w-full backdrop-blur-xs flex relative overflow-hidden">
-                <Sidebar selectedUser={selectedUser} setShowUserInfo={setShowUserInfo} onSelect={handleSelectUser} />
+                <Sidebar setShowUserInfo={setShowUserInfo} onSelect={handleSelectUser} />
                 {selectedUser ? (
                     <>
                         <ChatContainer selectedUser={selectedUser} onBack={handleBackToChats} onToggleUserInfo={handleToggleUserInfo} />

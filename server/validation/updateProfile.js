@@ -19,4 +19,4 @@ const updateProfileSchema = {
     }
 };
 
-export default registerSchema;
+export default updateProfileSchema;

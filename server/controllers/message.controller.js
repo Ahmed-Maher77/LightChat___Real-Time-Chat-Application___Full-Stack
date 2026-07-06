@@ -1,4 +1,5 @@
 import Message from "../models/Message.model.js";
+import User from "../models/User.model.js";
 import AppError from "../utils/global-error-handler.js";
 import cloudinary from "../lib/cloudinary.js";
 import { userSocketMap } from "../server.js";
@@ -16,7 +17,7 @@ export const getAllUsers = async (req, res, next) => {
             const unreadMessagesCount = await Message.countDocuments({
                 senderId: user._id,
                 receiverId: req.user.id,
-                see: false,
+                seen: false,
             });
             if (unreadMessagesCount > 0) {
                 unreadMessages[user._id] = unreadMessagesCount;
@@ -46,8 +47,10 @@ export const getMessages = async (req, res, next) => {
 
         // get chat messages
         const messages = await Message.find({
-            senderId: req.user.id || selectedUserId,
-            receiverId: selectedUserId || req.user.id,
+            $or: [
+                { senderId: req.user.id, receiverId: selectedUserId },
+                { senderId: selectedUserId, receiverId: req.user.id },
+            ],
         })
             .sort({ createdAt: 1 })
             .lean();

@@ -9,12 +9,12 @@ const HeaderUserInfo = ({ selectedUser, statusConfig, onToggleUserInfo }) => {
                 onClick={onToggleUserInfo}
             >
                 <img
-                    src={selectedUser?.profilePic || generateAlternativeImage(selectedUser?.name)}
-                    alt={`${selectedUser?.name}'s profile picture`}
+                    src={selectedUser?.profilePic || generateAlternativeImage(selectedUser?.fullName)}
+                    alt={`${selectedUser?.fullName}'s profile picture`}
                     className="h-13 w-13 2xl:h-14 2xl:w-14 rounded-full border-4 border-gray-800"
                 />
                 <div className="min-w-0">
-                    <h3 className="text-base text-stone-200 md:text-lg truncate">{selectedUser?.name}</h3>
+                    <h3 className="text-base text-stone-200 md:text-lg truncate">{selectedUser?.fullName}</h3>
                     <div className="status flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap text-sm">
                         <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${statusConfig.dotClass}`} />
                         <span className={`${statusConfig.textClass} truncate`}>

@@ -138,29 +138,28 @@ const updateProfile = async (req, res, next) => {
         }
 
         // check if user exists
-        const existingUser = await User.findById(
-            req.user.id,
-            { password: 0 },
-            { lean: true },
-        );
+        const existingUser = await User.findById(req.user.id).select("-password").lean();
         if (!existingUser) {
             return next(new AppError("Unauthorized: User not found", 401));
         }
 
-        const upload = await cloudinary.uploader.upload(profilePic, {
-            folder: "lightchat/profile-pics",
-        });
-        const profilePicUrl = upload.secure_url;
+        let profilePicUrl = existingUser.profilePic;
+        if (profilePic) {
+            const upload = await cloudinary.uploader.upload(profilePic, {
+                folder: "lightchat/profile-pics",
+            });
+            profilePicUrl = upload.secure_url;
+        }
 
         // update the user data in db
-        const updatedUser = await User.updateOne(
-            { _id: req.user.id },
+        const updatedUser = await User.findByIdAndUpdate(
+            req.user.id,
             {
                 fullName: fullName || existingUser.fullName,
                 bio: bio || existingUser.bio,
-                profilePic: profilePicUrl || existingUser.profilePic,
+                profilePic: profilePicUrl,
             },
-            { new: true, lean: true },
+            { new: true, select: "-password", lean: true }
         );
 
         // return the updated user data
@@ -171,7 +170,7 @@ const updateProfile = async (req, res, next) => {
                 id: updatedUser._id,
                 fullName: updatedUser.fullName,
                 bio: updatedUser.bio,
-                profilePic: profilePicUrl,
+                profilePic: updatedUser.profilePic,
             },
         });
     } catch (err) {

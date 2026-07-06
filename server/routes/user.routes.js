@@ -4,6 +4,7 @@ import protectedRoute from "../middlewares/auth.js";
 import validateRequest from "../validation/validateRequest.js";
 import registerSchema from "../validation/registerSchema.js";
 import loginSchema from "../validation/loginSchema.js";
+import updateProfileSchema from "../validation/updateProfile.js";
 
 const router = express.Router();
 
@@ -17,7 +18,7 @@ router.post("/login", validateRequest(loginSchema), userController.login);
 router.get("/checkAuth", protectedRoute, userController.checkAuth);
 
 // update user profile route
-router.put("/update-profile", protectedRoute, userController.updateProfile);
+router.put("/update-profile", protectedRoute, validateRequest(updateProfileSchema), userController.updateProfile);
 
 // profile route
 router.get("/profile", protectedRoute, userController.profile);

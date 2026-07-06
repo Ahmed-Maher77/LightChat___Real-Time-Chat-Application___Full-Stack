@@ -11,11 +11,6 @@ const MessageSchema = new mongoose.Schema({
     file: {
         type: String,
     },
-    password: {
-        type: String,
-        required: true,
-        minlength: 6,
-    },
     seen: {
         type: Boolean,
         default: false,
