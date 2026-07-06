@@ -8,6 +8,14 @@ LightChat is a full-stack real-time private messaging platform that combines JWT
 
 ---
 
+## 👀 Website Preview:
+
+<a href="https://light-chat-real-time-chat-applicati.vercel.app" title="demo">
+  <img src="https://github.com/user-attachments/assets/b2a648a8-d8db-4df2-bfa6-12bb604399c2" alt="website preview - Demo - UI Mockup" width="400">
+</a>
+
+---
+
 ## Used Technologies
 
 - React 19 - Builds the component-driven chat interface and shared app state.
@@ -59,13 +67,6 @@ Operations the app can do:
 - Mark messages as seen.
 - Show who is online in real time.
 
----
-
-## 👀 Website Preview:
-
-<a href="https://light-chat-real-time-chat-applicati.vercel.app" title="demo">
-  <img src="https://example.com/website-preview.png" alt="website preview - Demo - UI Mockup" width="400">
-</a>
 ---
 
 ## Best Practices and Standards I Followed
