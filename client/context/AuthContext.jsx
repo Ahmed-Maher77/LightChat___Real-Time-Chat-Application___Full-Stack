@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useState, useEffect } from "react";
 import axios from 'axios';
 import toast from "react-hot-toast";
@@ -15,6 +16,7 @@ const AuthProvider = ({ children }) => {
 
     // Check if user is authenticated and if so, set the user data and connect the socket
     const checkAuth = async () => {
+        if (!localStorage.getItem("token")) return;
         try {
             const { data } = await axios.get("/api/auth/checkAuth");
             if (data.success) {
@@ -22,7 +24,7 @@ const AuthProvider = ({ children }) => {
                 connectSocket(data.user);
             }
         } catch (error) {
-            toast.error(error.message || "Failed to check authentication");
+            toast.error(error.response?.data?.message || error.message || "Failed to check authentication");
         }
     }
 
@@ -90,6 +92,7 @@ const AuthProvider = ({ children }) => {
             axios.defaults.headers.common["token"] = token;
         }
         checkAuth();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const value = {

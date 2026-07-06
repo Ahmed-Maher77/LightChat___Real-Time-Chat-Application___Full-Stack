@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFoundPage";
 import AddNewContactProvider from "./hooks/contexts/AddNewContactProvider";
 import UserDataProvider from "./context/userDataProvider";
 import { AuthContext } from "../context/AuthContext";
+import { ChatProvider } from "../context/ChatContext";
 import { Toaster } from "react-hot-toast";
 
 
@@ -31,11 +32,13 @@ const App = () => {
     return (
         <AddNewContactProvider>
             <UserDataProvider>
+            <ChatProvider>
                 <Toaster reverseOrder={false} />
                 <div className="app-shell min-h-screen text-white">
                     <div className="app-shell-background" aria-hidden="true" />
                     <RouterProvider router={router} />
                 </div>
+            </ChatProvider>
             </UserDataProvider>
         </AddNewContactProvider>
     );

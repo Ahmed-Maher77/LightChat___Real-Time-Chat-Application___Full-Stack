@@ -1,22 +1,45 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import assets from "../../../assets/assets";
 import { Link } from "react-router-dom";
 import AddNewContactScreen from "../../AddNewContactScreen";
 import useAddNewContact from "../../../hooks/contexts/useAddNewContact";
-import { useUserDataContext } from "../../../context/userDataProvider";
+import { AuthContext } from "../../../../context/AuthContext";
+import { useRef } from "react";
 
 const AppLogo = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { showAddNewContactScreen, setShowAddNewContactScreen } =
         useAddNewContact();
-    const { logout } = useUserDataContext();
+    const { logout } = useContext(AuthContext);
+    const [optionsMenuDirection, setOptionsMenuDirection] = useState("left");
 
+    const optionsMenuRef = useRef(null);
     // close the menu when clicking outside of it
     useEffect(() => {
         document.addEventListener("click", (e) => {
             if (e.target.matches(".menu-icon")) return;
             setIsMenuOpen(false);
         });
+    }, []);
+
+    // adjust the direction of the optionsMenu based on the viewport width
+    useEffect(() => {
+        const handleResize = () => {
+            const viewPortWidth =
+                document.documentElement.getBoundingClientRect().width;
+            const optionsMenuRight =
+                optionsMenuRef.current?.getBoundingClientRect().right +
+                optionsMenuRef.current?.getBoundingClientRect().width;
+            console.log(viewPortWidth, optionsMenuRight);
+            if (optionsMenuRight > viewPortWidth) {
+                setOptionsMenuDirection("right");
+            } else {
+                setOptionsMenuDirection("left");
+            }
+        };
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
     }, []);
 
     const toggleMenu = () => {
@@ -40,7 +63,8 @@ const AppLogo = () => {
                     className="menu-icon w-9 h-9 p-2 hover:bg-gray-600 rounded-full trans-3 cursor-pointer"
                 />
                 <ul
-                    className={`gray-bg rounded-lg p-2 border border-gray-600 absolute top-full left-0 mt-2 w-max ${isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"} transition z-20`}
+                    className={`gray-bg rounded-lg p-2 border border-gray-600 absolute top-full ${optionsMenuDirection === "left" ? "left-0" : "right-0"} mt-2 w-max ${isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"} transition z-20`}
+                    ref={optionsMenuRef}
                 >
                     {/* ======= edit profile ======= */}
                     <li>
@@ -78,7 +102,10 @@ const AppLogo = () => {
                     </li>
                     {/* ======= logout ======= */}
                     <li>
-                        <button className="hover:bg-gray-600 p-2 px-3 rounded-lg transition w-full text-left cursor-pointer flex items-center gap-3 justify-between text-red-500" onClick={logout}>
+                        <button
+                            className="hover:bg-gray-600 p-2 px-3 rounded-lg transition w-full text-left cursor-pointer flex items-center gap-3 justify-between text-red-500"
+                            onClick={logout}
+                        >
                             <span>Logout</span>
                             <img
                                 src={assets.quit_icon}

@@ -1,14 +1,20 @@
+import { useContext } from "react";
+import { ChatContext } from "../../../../context/ChatContext";
+import { AuthContext } from "../../../../context/AuthContext";
 import HeaderBackButton from "./ChatContainerHeader/HeaderBackButton";
 import HeaderUserInfo from "./ChatContainerHeader/HeaderUserInfo";
 import HeaderHelpButton from "./ChatContainerHeader/HeaderHelpButton";
 import lastConnectionFormatter from "../../../utils/functions/lastConnectionFormatter";
 
-const ChatContainerHeader = ({ selectedUser, onBack, onToggleUserInfo }) => {
+const ChatContainerHeader = ({ onBack, onToggleUserInfo }) => {
+    const { selectedUser } = useContext(ChatContext);
+    const { onlineUsers } = useContext(AuthContext);
     const handleUserInfoClick = () => {
         onToggleUserInfo();
     };
 
-    const lastConnectionValue = selectedUser?.lastConnectionAt || selectedUser?.time;
+    const lastConnectionValue = selectedUser?.lastConnectionAt || selectedUser?.time || selectedUser?.updatedAt;
+    const isOnline = selectedUser ? onlineUsers.includes(selectedUser._id) : false;
 
     const statusConfig = selectedUser?.isTyping
         ? {
@@ -17,7 +23,7 @@ const ChatContainerHeader = ({ selectedUser, onBack, onToggleUserInfo }) => {
             dotClass: "bg-emerald-400 animate-pulse",
             textClass: "text-emerald-300"
         }
-        : selectedUser?.isOnline
+        : isOnline
             ? {
                 label: "Online",
                 showDots: false,

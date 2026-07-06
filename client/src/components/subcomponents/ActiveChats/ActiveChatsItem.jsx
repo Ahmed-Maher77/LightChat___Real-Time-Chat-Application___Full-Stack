@@ -1,11 +1,14 @@
+import { useContext } from "react";
+import { ChatContext } from "../../../../context/ChatContext";
 import generateAlternativeImage from "../../../utils/functions/generateAlternativeImage";
 import timeFormatter from "../../../utils/functions/timeFormatter";
 import UserStatusIndicator from "../../common/UserStatusIndicator";
 
-const ActiveChatsItem = ({ isOnline, selectedUser, setShowUserInfo, onSelect, userData }) => {
+const ActiveChatsItem = ({ isOnline, setShowUserInfo, userData }) => {
+    const { selectedUser, setSelectedUser, unseenMessages } = useContext(ChatContext);
+
     const handleSelectUser = () => {
-        // pass the user data here instead of just calling onSelect() and then use it in the ChatContainer to display the user's info and messages
-        onSelect(userData);
+        setSelectedUser(userData);
         setShowUserInfo(false);
     };
 
@@ -17,9 +20,11 @@ const ActiveChatsItem = ({ isOnline, selectedUser, setShowUserInfo, onSelect, us
           ? userData.lastMessage
           : "No chat history";
 
+    const unseenCount = unseenMessages ? unseenMessages[userData._id] : 0;
+
     return (
         <li
-            className={`active-chat-item flex items-end gap-3 p-2 px-3 hover:bg-gray-700 ${selectedUser?.id === userData?.id ? "bg-gray-700" : ""} cursor-pointer rounded-lg trans-3`}
+            className={`active-chat-item flex items-end gap-3 p-2 px-3 hover:bg-gray-700 ${selectedUser?._id === userData?._id ? "bg-gray-700" : ""} cursor-pointer rounded-lg trans-3`}
             onClick={handleSelectUser}
         >
             <article className="flex flex-1 min-w-0 items-center gap-3">
@@ -28,7 +33,7 @@ const ActiveChatsItem = ({ isOnline, selectedUser, setShowUserInfo, onSelect, us
                     <img
                         src={
                             userData?.profilePic ||
-                            generateAlternativeImage(userData?.name)
+                            generateAlternativeImage(userData?.fullName)
                         }
                         alt="user's picture"
                         className="w-full rounded-full"
@@ -37,7 +42,7 @@ const ActiveChatsItem = ({ isOnline, selectedUser, setShowUserInfo, onSelect, us
                 </div>
                 {/* ======= user's info ====== */}
                 <div className="info flex min-w-0 flex-col gap-1">
-                    <h3 className="font-normal truncate">{userData?.name}</h3>
+                    <h3 className="font-normal truncate">{userData?.fullName}</h3>
                     {isTyping ? (
                         <p className="last-message-preview text-xs text-emerald-300">
                             {previewMessage}
@@ -55,11 +60,13 @@ const ActiveChatsItem = ({ isOnline, selectedUser, setShowUserInfo, onSelect, us
 
             {/* ======= message details ====== */}
             <div className="msg-details shrink-0 flex flex-col items-end gap-2">
-                <span className="notification-label w-5 h-5 bg-(--primary-color) text-white text-xs flex items-center justify-center rounded-full">
-                    3
-                </span>
+                {unseenCount > 0 ? (
+                    <span className="notification-label w-5 h-5 bg-(--primary-color) text-white text-xs flex items-center justify-center rounded-full">
+                        {unseenCount}
+                    </span>
+                ) : null}
                 <div className="date text-stone-400 text-[0.7rem]">
-                    {timeFormatter(userData?.time)}
+                    {timeFormatter(userData?.time || userData?.updatedAt)}
                 </div>
             </div>
 

@@ -1,17 +1,18 @@
-import React, { useEffect } from "react";
-import { messagesDummyData } from "../../../assets/assets";
-import { useUserDataContext } from "../../../context/userDataProvider";
+import React, { useEffect, useContext } from "react";
 import timeFormatter from "../../../utils/functions/timeFormatter";
 import MessageItem from "./ChatContainerHeader/MessageItem";
+import { ChatContext } from "../../../../context/ChatContext";
+import { AuthContext } from "../../../../context/AuthContext";
 
-const MessagesContainer = ({ selectedUser }) => {
-    const { userData } = useUserDataContext();
-    const isMine = (message) => userData.id === message.senderId;
+const MessagesContainer = () => {
+    const { messages, selectedUser } = useContext(ChatContext);
+    const { authUser } = useContext(AuthContext);
+    const isMine = (message) => authUser && (authUser.id === message.senderId || authUser._id === message.senderId);
     const containerEndRef = React.useRef(null);
 
     useEffect(() => {
         containerEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [selectedUser]);
+    }, [messages, selectedUser]);
 
     return (
         <div
@@ -19,7 +20,7 @@ const MessagesContainer = ({ selectedUser }) => {
             className="flex flex-col w-full min-h-0 flex-1"
         >
             <ul className="flex flex-col gap-5 w-full h-full overflow-y-auto pt-8 pb-18">
-                {messagesDummyData.map((message, idx, arr) => (
+                {messages && messages.map((message, idx, arr) => (
                     <li
                         key={message._id}
                         className={`max-w-[70%] lg:max-w-[50%] flex gap-4 ${isMine(message) ? "self-end" : "self-start"}`}
@@ -28,7 +29,7 @@ const MessagesContainer = ({ selectedUser }) => {
                             message={message}
                             isMine={isMine(message)}
                             timeFormatter={timeFormatter}
-                            userData={userData}
+                            userData={authUser}
                             selectedUser={selectedUser}
                             isSameSenderAsPrev={
                                 idx > 0 &&

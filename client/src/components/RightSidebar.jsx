@@ -1,10 +1,17 @@
-import assets, { imagesDummyData } from "../assets/assets";
-import { useUserDataContext } from "../context/userDataProvider";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { ChatContext } from "../../context/ChatContext";
+import assets from "../assets/assets";
 import UserInfo from "./subcomponents/RightSidebar/UserInfo";
 
 const RightSidebar = ({ selectedUser, onBack, isClosing = false }) => {
-    const media = imagesDummyData; // Placeholder: replace with real media data.
-    const { logout } = useUserDataContext();
+    const { messages } = useContext(ChatContext);
+    const { logout } = useContext(AuthContext);
+
+    // Extract real media files from messages
+    const media = messages
+        .filter((msg) => msg.image)
+        .map((msg) => msg.image);
 
     return (
         <div
