@@ -84,7 +84,11 @@ app.use((err, req, res, next) => {
 // ============== Start the server ==============
 await connectDB();
 
-const PORT = process.env.PORT || 5000;
-server.listen(PORT, async () => {
-    console.log(`Server is running on Port: ${PORT}`);
-});
+if (process.env.NODE_ENV !== "production" || !process.env.VERCEL) {
+    const PORT = process.env.PORT || 5000;
+    server.listen(PORT, async () => {
+        console.log(`Server is running on Port: ${PORT}`);
+    });
+}
+
+export default app;

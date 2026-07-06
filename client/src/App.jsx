@@ -24,22 +24,22 @@ const App = () => {
                 <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
                 <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
                 
-                <div className="relative flex flex-col items-center gap-6 z-10">
+                <div className="relative flex flex-col items-center gap-14 z-10">
                     <div className="relative flex items-center justify-center">
                         {/* Orbit ring */}
-                        <div className="absolute w-24 h-24 border-t-2 border-r-2 border-indigo-500 rounded-full animate-spin" />
+                        <div className="absolute w-28 h-28 border-t-2 border-r-2 border-indigo-400/70 rounded-full animate-spin" />
                         {/* Inner pulse circle */}
-                        <div className="absolute w-20 h-20 bg-indigo-500/5 rounded-full animate-ping" />
+                        <div className="absolute w-24 h-24 bg-indigo-500/10 rounded-full animate-ping" />
                         {/* Logo */}
                         <img 
                             src={assets.main_logo} 
                             alt="LightChat Logo" 
-                            className="w-12 h-12 relative animate-pulse" 
+                            className="w-14 h-14 relative animate-pulse" 
                         />
                     </div>
-                    <div className="flex flex-col items-center gap-1.5">
-                        <h2 className="text-xl font-semibold text-white tracking-widest uppercase">LightChat</h2>
-                        <p className="text-xs text-stone-400 font-medium tracking-wide animate-pulse">Establishing secure connection...</p>
+                    <div className="flex flex-col items-center gap-3">
+                        <h2 className="text-2xl font-bold text-white tracking-[0.2em] uppercase">LightChat</h2>
+                        <p className="text-sm text-stone-400 font-medium tracking-wide animate-pulse">Establishing secure connection...</p>
                     </div>
                 </div>
             </div>
