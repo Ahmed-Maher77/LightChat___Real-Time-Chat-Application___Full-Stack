@@ -1,16 +1,31 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import assets from "../assets/assets";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const ProfilePage = () => {
+    const { authUser, updateProfile } = useContext(AuthContext);
+
     const [selectedImg, setSelectedImg] = useState(null);
     const navigate = useNavigate();
-    const [name, setName] = useState("");
-    const [bio, setBio] = useState("Hi Everyone! I'm using LightChat.");
+    const [name, setName] = useState(authUser?.fullName || "");
+    const [bio, setBio] = useState(authUser?.bio || "Hi Everyone! I'm using LightChat.");
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        navigate("/");
+        if (!selectedImg) {
+            await updateProfile({ fullName: name, bio });
+            navigate("/");
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = async () => {
+            const base64Image = reader.result;
+            await updateProfile({ fullName: name, bio, profilePic: base64Image });
+            navigate("/");
+        }
+        reader.readAsDataURL(selectedImg);
     }
 
     return (
