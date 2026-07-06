@@ -10,6 +10,7 @@ import validateRequest from "./validation/validateRequest.js";
 import cookieParser from "cookie-parser";
 import userRouter from "./routes/user.routes.js";
 import messageRouter from "./routes/message.routes.js";
+import { Server } from "socket.io";
 
 
 // ============== Create Express App and Http Server ==============
@@ -17,6 +18,29 @@ const app = express();
 const server = http.createServer(app);
 dotenv.config();
 
+// Initialize Socket.IO server
+export const io = new Server(server, {
+    cors: { origin: "*" }
+});
+
+// Store online users
+export const userSocketMap = {};    // { userId: socketId }
+
+// Socket.io connection handler
+io.on("connection", (socket) => {
+    const userId = socket.handshake.query.userId;
+    console.log(`User connected: ${userId}, Socket ID: ${socket.id}`);
+    if (userId) userSocketMap[userId] = socket.id;
+
+    // Emit online users to all connected clients
+    io.emit("getOnlineUsers", Object.keys(userSocketMap));
+
+    socket.on("disconnect", () => {
+        console.log(`User disconnected: ${userId}, Socket ID: ${socket.id}`);
+        if (userId) delete userSocketMap[userId];
+        io.emit("getOnlineUsers", Object.keys(userSocketMap));
+    })
+})
 
 // ============== Middlewares ==============
 app.use(express.json({ limit: "4mb" }));

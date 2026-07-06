@@ -1,6 +1,8 @@
 import Message from "../models/Message.model.js";
 import AppError from "../utils/global-error-handler.js";
 import cloudinary from "../lib/cloudinary.js";
+import { userSocketMap } from "../server.js";
+import { io } from "../server.js";
 
 // Get all users except the current user => for sidebar list
 export const getAllUsers = async (req, res, next) => {
@@ -116,6 +118,12 @@ export const sendMessage = async (req, res, next) => {
             image: imageUrl,
             file: fileUrl,
         });
+
+        // Emit the new message to the receiver if they are online
+        const receiverSocketId = userSocketMap[receiverId];
+        if (receiverSocketId) {
+            io.to(receiverSocketId).emit("newMessage", newMessage);
+        }
 
         res.status(201).json({
             success: true,

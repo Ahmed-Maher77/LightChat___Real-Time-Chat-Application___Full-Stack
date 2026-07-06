@@ -14,7 +14,7 @@ router.get("/:userId", protectedRoute, messageController.getMessages);
 router.patch("/mark/:messageId", protectedRoute, messageController.markMessageAsSeen);
 
 // send a new message
-router.post("/send", protectedRoute, messageController.sendMessage);
+router.post("/send/:id", protectedRoute, messageController.sendMessage);
 
 
 export default router;
