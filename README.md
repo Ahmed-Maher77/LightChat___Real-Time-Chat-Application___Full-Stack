@@ -10,8 +10,16 @@ LightChat is a full-stack real-time private messaging platform that combines JWT
 
 ## 👀 Website Preview:
 
-<a href="https://light-chat-real-time-chat-applicati.vercel.app" title="demo">
+<!-- <a href="https://light-chat-real-time-chat-applicati.vercel.app" title="demo">
   <img src="https://github.com/user-attachments/assets/b2a648a8-d8db-4df2-bfa6-12bb604399c2" alt="website preview - Demo - UI Mockup" width="400">
+</a>
+
+<a href="https://light-chat-real-time-chat-applicati.vercel.app" title="demo">
+  <img src="https://github.com/user-attachments/assets/9ad3f24d-83a5-4260-b044-2da1e47fe9e1" alt="website preview - Demo - UI Mockup" width="400">
+</a> -->
+
+<a href="https://light-chat-real-time-chat-applicati.vercel.app" title="demo">
+  <img src="https://github.com/user-attachments/assets/d7183406-a6aa-4544-b4d3-ec208034d6b0" alt="website preview - Demo - UI Mockup" width="400">
 </a>
 
 ---
