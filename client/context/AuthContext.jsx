@@ -21,6 +21,7 @@ const AuthProvider = ({ children }) => {
             setIsCheckingAuth(false);
             return;
         }
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for 1 second before setting isCheckingAuth to false
         try {
             const { data } = await axios.get("/api/auth/checkAuth");
             if (data.success) {

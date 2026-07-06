@@ -24,6 +24,20 @@ const Sidebar = ({ setShowUserInfo }) => {
             <AppLogo />
             <SearchBar placeholder="Search here..." onSearch={(value) => setInput(value)} />
             <ActiveChats activeChats={filteredUsers} onlineUsers={onlineUsers} setShowUserInfo={setShowUserInfo} />
+            <footer className="text-[10px] text-center text-stone-500 font-light mt-auto pt-2 border-t border-gray-800">
+                <p>&copy; {new Date().getFullYear()} LightChat.</p>
+                <p className="mt-0.5">
+                    Developed by{" "}
+                    <a 
+                        href="https://www.linkedin.com/in/ahmed-maher-algohary" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="text-indigo-400 hover:text-indigo-300 font-medium transition duration-300 hover:underline"
+                    >
+                        Ahmed Maher
+                    </a>
+                </p>
+            </footer>
         </div>
     );
 };

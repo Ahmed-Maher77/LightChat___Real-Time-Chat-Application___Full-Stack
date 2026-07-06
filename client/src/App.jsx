@@ -11,6 +11,7 @@ import UserDataProvider from "./context/userDataProvider";
 import { AuthContext } from "../context/AuthContext";
 import { ChatProvider } from "../context/ChatContext";
 import { Toaster } from "react-hot-toast";
+import assets from "./assets/assets";
 
 
 const App = () => {
@@ -18,10 +19,28 @@ const App = () => {
 
     if (isCheckingAuth) {
         return (
-            <div className="flex items-center justify-center min-h-screen bg-gray-950 text-white">
-                <div className="flex flex-col items-center gap-4">
-                    <div className="w-12 h-12 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin"></div>
-                    <p className="text-stone-400 text-sm font-medium tracking-wide animate-pulse">Loading LightChat...</p>
+            <div className="relative flex items-center justify-center min-h-screen bg-slate-950 overflow-hidden text-white">
+                {/* Glow Effects */}
+                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
+                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
+                
+                <div className="relative flex flex-col items-center gap-6 z-10">
+                    <div className="relative flex items-center justify-center">
+                        {/* Orbit ring */}
+                        <div className="absolute w-24 h-24 border-t-2 border-r-2 border-indigo-500 rounded-full animate-spin" />
+                        {/* Inner pulse circle */}
+                        <div className="absolute w-20 h-20 bg-indigo-500/5 rounded-full animate-ping" />
+                        {/* Logo */}
+                        <img 
+                            src={assets.main_logo} 
+                            alt="LightChat Logo" 
+                            className="w-12 h-12 relative animate-pulse" 
+                        />
+                    </div>
+                    <div className="flex flex-col items-center gap-1.5">
+                        <h2 className="text-xl font-semibold text-white tracking-widest uppercase">LightChat</h2>
+                        <p className="text-xs text-stone-400 font-medium tracking-wide animate-pulse">Establishing secure connection...</p>
+                    </div>
                 </div>
             </div>
         );
