@@ -28,7 +28,7 @@ const ActiveChatsItem = ({ isOnline, setShowUserInfo, userData }) => {
             onClick={handleSelectUser}
         >
             <article className="flex flex-1 min-w-0 items-center gap-3">
-                <div className="user-chat-picture w-12 shrink-0">
+                <div className="user-chat-picture w-12 h-12 shrink-0">
                     {/* ======= user's picture ====== */}
                     <img
                         src={
@@ -36,7 +36,7 @@ const ActiveChatsItem = ({ isOnline, setShowUserInfo, userData }) => {
                             generateAlternativeImage(userData?.fullName)
                         }
                         alt="user's picture"
-                        className="w-full rounded-full"
+                        className="w-full h-full rounded-full object-cover"
                     />
                     <UserStatusIndicator isOnline={isOnline} />
                 </div>

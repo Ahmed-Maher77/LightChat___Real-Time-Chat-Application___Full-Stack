@@ -24,7 +24,7 @@ const Sidebar = ({ setShowUserInfo }) => {
             <AppLogo />
             <SearchBar placeholder="Search here..." onSearch={(value) => setInput(value)} />
             <ActiveChats activeChats={filteredUsers} onlineUsers={onlineUsers} setShowUserInfo={setShowUserInfo} />
-            <footer className="text-[10px] text-center text-stone-500 font-light mt-auto pt-2 border-t border-gray-800">
+            <footer className="text-xs text-center text-stone-500 font-light mt-auto pt-2 border-t border-gray-800">
                 <p>&copy; {new Date().getFullYear()} LightChat.</p>
                 <p className="mt-0.5">
                     Developed by{" "}

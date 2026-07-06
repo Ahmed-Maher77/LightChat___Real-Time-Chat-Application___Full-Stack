@@ -72,12 +72,25 @@ const ChatProvider = ({ children }) => {
                     [newMessage.senderId]: (prevUnseen[newMessage.senderId] || 0) + 1
                 }));
             }
-        })
+        });
+
+        socket.on("messagesSeen", ({ seenBy }) => {
+            if (selectedUser && seenBy === selectedUser._id) {
+                setMessages(prevMessages =>
+                    prevMessages.map(msg =>
+                        msg.receiverId === seenBy ? { ...msg, seen: true } : msg
+                    )
+                );
+            }
+        });
     }
 
     // function to unsubscribe from messages for selected user
     const unsubscribeFromMessages = () => {
-        if (socket) socket.off("newMessage");
+        if (socket) {
+            socket.off("newMessage");
+            socket.off("messagesSeen");
+        }
     }
 
     useEffect(() => {

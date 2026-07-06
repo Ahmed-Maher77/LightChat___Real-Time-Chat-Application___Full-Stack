@@ -49,9 +49,8 @@ function generateAlternativeImage(username) {
     // Map hash to a hue value (0 → 359)
     const hue = hash % 360;
 
-    // Create gradient colors using HSL
-    const bgColorStart = `hsl(${hue}, 62%, 45%)`;
-    const bgColorEnd = `hsl(${(hue + 35) % 360}, 68%, 35%)`;
+    // Create solid background color using HSL
+    const bgColor = `hsl(${hue}, 62%, 45%)`;
 
     // Adaptive typography with fixed slots for consistent letter width appearance
     const isSingleLetter = initials.length === 1;
@@ -122,20 +121,16 @@ function generateAlternativeImage(username) {
     >${initials[1]}</text>
   </g>`;
 
-    // Build SVG avatar with gradient background + centered initials
+    // Build SVG avatar with solid background + centered initials
     const svg = `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="${initials}">
   <defs>
-    <linearGradient id="avatarGradient" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="${bgColorStart}"/>
-      <stop offset="100%" stop-color="${bgColorEnd}"/>
-    </linearGradient>
     <filter id="softTextShadow" x="-40%" y="-40%" width="180%" height="180%">
       <feDropShadow dx="0" dy="0.6" stdDeviation="0.5" flood-color="rgba(0,0,0,0.12)"/>
     </filter>
   </defs>
   <!-- Circular background -->
-  <rect width="128" height="128" rx="64" fill="url(#avatarGradient)"/>
+  <rect width="128" height="128" rx="64" fill="${bgColor}"/>
   <circle cx="64" cy="64" r="61" fill="none" stroke="rgba(255,255,255,0.17)" stroke-width="2"/>
 ${monogram}
 </svg>`;

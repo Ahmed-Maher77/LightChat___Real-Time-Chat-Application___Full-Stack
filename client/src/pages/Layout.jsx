@@ -10,7 +10,7 @@ const Layout = () => {
                 <Outlet />
             </div>
             {!isChatPage && (
-                <footer className="w-full py-4 bg-gray-950/40 border-t border-gray-900/60 text-center text-xs text-stone-500 font-light flex flex-col sm:flex-row justify-center items-center gap-1 sm:gap-3 z-10">
+                <footer className="w-full py-4 bg-gray-950/40 border-t border-gray-900/60 text-center text-sm text-stone-500 font-light flex flex-col sm:flex-row justify-center items-center gap-1 sm:gap-3 z-10">
                     <span>&copy; {new Date().getFullYear()} LightChat. All rights reserved.</span>
                     <span className="hidden sm:inline text-stone-700">|</span>
                     <span>

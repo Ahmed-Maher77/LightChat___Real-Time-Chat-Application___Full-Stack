@@ -22,6 +22,20 @@ export const getAllUsers = async (req, res, next) => {
             if (unreadMessagesCount > 0) {
                 unreadMessages[user._id] = unreadMessagesCount;
             }
+
+            const lastMessageDoc = await Message.findOne({
+                $or: [
+                    { senderId: req.user.id, receiverId: user._id },
+                    { senderId: user._id, receiverId: req.user.id },
+                ],
+            })
+                .sort({ createdAt: -1 })
+                .lean();
+
+            if (lastMessageDoc) {
+                user.lastMessage = lastMessageDoc.text || (lastMessageDoc.image ? "🖼️ Image" : "📁 File");
+                user.time = lastMessageDoc.createdAt;
+            }
         });
 
         await Promise.all(promises);
@@ -61,6 +75,14 @@ export const getMessages = async (req, res, next) => {
             { seen: true },
         );
 
+        // Notify the sender (selectedUserId) via socket.io that their messages have been seen
+        const senderSocketId = userSocketMap[selectedUserId];
+        if (senderSocketId) {
+            io.to(senderSocketId).emit("messagesSeen", {
+                seenBy: req.user.id,
+            });
+        }
+
         return res.status(200).json({
             success: true,
             message: "Messages fetched successfully",
@@ -78,7 +100,15 @@ export const markMessageAsSeen = async (req, res, next) => {
         if (!messageId) {
             return next(new AppError("Message ID is required", 400));
         }
-        await Message.findByIdAndUpdate(messageId, { seen: true });
+        const message = await Message.findByIdAndUpdate(messageId, { seen: true }, { new: true });
+        if (message) {
+            const senderSocketId = userSocketMap[message.senderId];
+            if (senderSocketId) {
+                io.to(senderSocketId).emit("messagesSeen", {
+                    seenBy: message.receiverId,
+                });
+            }
+        }
         res.status(200).json({
             success: true,
             message: "Message marked as seen successfully",
