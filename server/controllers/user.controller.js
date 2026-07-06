@@ -41,7 +41,7 @@ const signup = async (req, res, next) => {
 
         // return response with user data and token
         return res.status(201).json({
-            success: true, 
+            success: true,
             message: "User registered successfully",
             user: {
                 id: newUser._id,
@@ -92,7 +92,7 @@ const login = async (req, res, next) => {
 
         // return response with user data and token
         return res.status(201).json({
-            success: true, 
+            success: true,
             message: "User logged in successfully",
             user: {
                 id: existingUser._id,
@@ -115,7 +115,7 @@ const login = async (req, res, next) => {
 
 const profile = (req, res) => {
     return res.status(200).json({
-        success: true, 
+        success: true,
         message: "User profile fetched successfully",
         user: req.user,
     });
@@ -124,7 +124,11 @@ const profile = (req, res) => {
 const checkAuth = (req, res) => {
     return res
         .status(200)
-        .json({ success: true, message: "User is authenticated", user: req.user });
+        .json({
+            success: true,
+            message: "User is authenticated",
+            user: req.user,
+        });
 };
 
 const updateProfile = async (req, res, next) => {
@@ -138,17 +142,28 @@ const updateProfile = async (req, res, next) => {
         }
 
         // check if user exists
-        const existingUser = await User.findById(req.user.id).select("-password").lean();
+        const existingUser = await User.findById(req.user.id)
+            .select("-password")
+            .lean();
         if (!existingUser) {
             return next(new AppError("Unauthorized: User not found", 401));
         }
 
         let profilePicUrl = existingUser.profilePic;
         if (profilePic) {
-            const upload = await cloudinary.uploader.upload(profilePic, {
-                folder: "lightchat/profile-pics",
-            });
-            profilePicUrl = upload.secure_url;
+            try {
+                const upload = await cloudinary.uploader.upload(profilePic, {
+                    folder: "lightchat/profile-pics",
+                });
+                profilePicUrl = upload.secure_url;
+            } catch (uploadError) {
+                return next(
+                    new AppError(
+                        uploadError.message || "Image upload failed",
+                        uploadError?.http_code || 500,
+                    ),
+                );
+            }
         }
 
         // update the user data in db
@@ -159,12 +174,12 @@ const updateProfile = async (req, res, next) => {
                 bio: bio || existingUser.bio,
                 profilePic: profilePicUrl,
             },
-            { new: true, select: "-password", lean: true }
+            { new: true, select: "-password", lean: true },
         );
 
         // return the updated user data
         return res.status(200).json({
-            success: true, 
+            success: true,
             message: "User profile updated successfully",
             user: {
                 id: updatedUser._id,

@@ -12,7 +12,6 @@ import userRouter from "./routes/user.routes.js";
 import messageRouter from "./routes/message.routes.js";
 import { Server } from "socket.io";
 
-
 // ============== Create Express App and Http Server ==============
 const app = express();
 const server = http.createServer(app);
@@ -20,11 +19,11 @@ dotenv.config();
 
 // Initialize Socket.IO server
 export const io = new Server(server, {
-    cors: { origin: "*" }
+    cors: { origin: "*" },
 });
 
 // Store online users
-export const userSocketMap = {};    // { userId: socketId }
+export const userSocketMap = {}; // { userId: socketId }
 
 // Socket.io connection handler
 io.on("connection", (socket) => {
@@ -39,45 +38,48 @@ io.on("connection", (socket) => {
         console.log(`User disconnected: ${userId}, Socket ID: ${socket.id}`);
         if (userId) delete userSocketMap[userId];
         io.emit("getOnlineUsers", Object.keys(userSocketMap));
-    })
-})
+    });
+});
 
 // ============== Middlewares ==============
-app.use(express.json({ limit: "4mb" }));
+app.use(express.json({ limit: "20mb" }));
 app.use(cors()); // allow all origins
 app.use(cookieParser()); // parse cookies
-
 
 // ============== Routes ==============
 // Health check route
 app.get("/healthz", (req, res) => {
-    res.status(200).json({ success: true, message: "Server is healthy", status: "OK" });
+    res.status(200).json({
+        success: true,
+        message: "Server is healthy",
+        status: "OK",
+    });
 });
 
-
 // User/Authentication routes
-app.use(
-    "/api/auth",
-    userRouter
-);
+app.use("/api/auth", userRouter);
 
 // message routes
 app.use("/api/messages", messageRouter);
 
-
-
 // Not found route
 app.use((req, res) => {
-    res.status(404).json({ success: false, message: "Route not found", status: "Not Found" });
+    res.status(404).json({
+        success: false,
+        message: "Route not found",
+        status: "Not Found",
+    });
 });
 
 // catch all errors
 app.use((err, req, res, next) => {
     return res
         .status(err.statusCode || 500)
-        .json({ success: false,  message: err.message || "Internal Server Error" });
+        .json({
+            success: false,
+            message: err.message || "Internal Server Error",
+        });
 });
-
 
 // ============== Start the server ==============
 await connectDB();

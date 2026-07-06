@@ -32,7 +32,6 @@ const AppLogo = () => {
             const optionsMenuRight =
                 optionsMenuRef.current?.getBoundingClientRect().right +
                 optionsMenuRef.current?.getBoundingClientRect().width;
-            console.log(viewPortWidth, optionsMenuRight);
             if (optionsMenuRight > viewPortWidth) {
                 setOptionsMenuDirection("right");
             } else {

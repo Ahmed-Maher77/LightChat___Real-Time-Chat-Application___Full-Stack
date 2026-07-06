@@ -100,18 +100,43 @@ export const sendMessage = async (req, res, next) => {
 
         let imageUrl;
         if (image) {
-            const result = await cloudinary.uploader.upload(image, {
-                folder: "lightchat/messages",
-            });
-            imageUrl = result.secure_url;
+            try {
+                const result = await cloudinary.uploader.upload(image, {
+                    folder: "lightchat/messages",
+                });
+                imageUrl = result.secure_url;
+            } catch (uploadError) {
+                return next(
+                    new AppError(
+                        uploadError.message || "Image upload failed",
+                        uploadError?.http_code || 500,
+                    ),
+                );
+            }
         }
 
         let fileUrl;
         if (file) {
-            const result = await cloudinary.uploader.upload(file, {
-                folder: "lightchat/messages",
-            });
-            fileUrl = result.secure_url;
+            try {
+                const result = await cloudinary.uploader.upload(file, {
+                    folder: "lightchat/messages",
+                    resource_type: "auto",
+                });
+                fileUrl = result.secure_url;
+                console.log("[sendMessage] file upload success", {
+                    senderId: req.user?.id,
+                    receiverId,
+                    publicId: result.public_id,
+                    secureUrl: result.secure_url,
+                });
+            } catch (uploadError) {
+                return next(
+                    new AppError(
+                        uploadError.message || "File upload failed",
+                        uploadError?.http_code || 500,
+                    ),
+                );
+            }
         }
 
         const newMessage = await Message.create({
@@ -134,6 +159,11 @@ export const sendMessage = async (req, res, next) => {
             data: newMessage,
         });
     } catch (err) {
+        console.error("[sendMessage] request failed", {
+            senderId: req.user?.id,
+            message: err.message,
+            statusCode: err.statusCode,
+        });
         return next(new AppError(err.message || "Internal server error", 500));
     }
 };
