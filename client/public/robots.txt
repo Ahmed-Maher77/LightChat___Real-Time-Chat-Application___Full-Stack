@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://light-chat-real-time-chat-applicati.vercel.app/sitemap.xml
