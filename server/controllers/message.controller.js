@@ -94,7 +94,7 @@ export const sendMessage = async (req, res, next) => {
         const { id: receiverId } = req.params;
         const { text, image, file } = req.body;
 
-        if (!text & !image & !file) {
+        if (!text && !image && !file) {
             return next(new AppError("You can't send an empty message", 400));
         }
 

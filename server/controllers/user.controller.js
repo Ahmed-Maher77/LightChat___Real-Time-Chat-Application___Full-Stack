@@ -169,8 +169,11 @@ const updateProfile = async (req, res, next) => {
             user: {
                 id: updatedUser._id,
                 fullName: updatedUser.fullName,
+                email: updatedUser.email,
                 bio: updatedUser.bio,
                 profilePic: updatedUser.profilePic,
+                createdAt: updatedUser.createdAt,
+                updatedAt: updatedUser.updatedAt,
             },
         });
     } catch (err) {

@@ -15,6 +15,8 @@ const registerSchema = {
         isEmail: {
             errorMessage: "Email is invalid",
         },
+        trim: true,
+        toLowerCase: true,
     },
     password: {
         notEmpty: {

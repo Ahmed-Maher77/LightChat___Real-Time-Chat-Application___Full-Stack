@@ -13,10 +13,14 @@ const AuthProvider = ({ children }) => {
     const [authUser, setAuthUser] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([]);
     const [socket, setSocket] = useState(null);
+    const [isCheckingAuth, setIsCheckingAuth] = useState(!!localStorage.getItem("token"));
 
     // Check if user is authenticated and if so, set the user data and connect the socket
     const checkAuth = async () => {
-        if (!localStorage.getItem("token")) return;
+        if (!localStorage.getItem("token")) {
+            setIsCheckingAuth(false);
+            return;
+        }
         try {
             const { data } = await axios.get("/api/auth/checkAuth");
             if (data.success) {
@@ -25,6 +29,8 @@ const AuthProvider = ({ children }) => {
             }
         } catch (error) {
             toast.error(error.response?.data?.message || error.message || "Failed to check authentication");
+        } finally {
+            setIsCheckingAuth(false);
         }
     }
 
@@ -52,7 +58,7 @@ const AuthProvider = ({ children }) => {
         localStorage.removeItem("token");
         setToken(null);
         setAuthUser(null);
-        setOnlineUsers(null);
+        setOnlineUsers([]);
         axios.defaults.headers.common["token"] = null;
         toast.success("Logged out successfully");
         socket?.disconnect();
@@ -103,6 +109,7 @@ const AuthProvider = ({ children }) => {
         login,
         logout,
         updateProfile,
+        isCheckingAuth,
     }
 
   return (

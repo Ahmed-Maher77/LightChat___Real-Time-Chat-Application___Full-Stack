@@ -1,9 +1,11 @@
 const loginSchema = {
     email: {
         in: ["body"],
-        isEmail: true,
-        normalizeEmail: true,
-        errorMessage: "Please provide a valid email address"
+        isEmail: {
+            errorMessage: "Please provide a valid email address"
+        },
+        trim: true,
+        toLowerCase: true,
     },
     password: {
         in: ["body"],

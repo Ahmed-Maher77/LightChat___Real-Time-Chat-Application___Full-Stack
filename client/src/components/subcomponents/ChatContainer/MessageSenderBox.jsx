@@ -92,7 +92,7 @@ const MessageSenderBox = () => {
     const handleTextareaKeyDown = (event) => {
         if (event.key === "Enter" && !event.shiftKey) {
             event.preventDefault();
-            if (message.trim()) {
+            if (message.trim() || filesUrl.imageUrl || filesUrl.fileUrl) {
                 handleSubmit(event);
             }
         }

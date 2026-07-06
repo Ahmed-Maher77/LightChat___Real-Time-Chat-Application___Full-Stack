@@ -16,10 +16,12 @@ const AppLogo = () => {
     const optionsMenuRef = useRef(null);
     // close the menu when clicking outside of it
     useEffect(() => {
-        document.addEventListener("click", (e) => {
-            if (e.target.matches(".menu-icon")) return;
+        const handleOutsideClick = (e) => {
+            if (e.target.closest(".menu-icon")) return;
             setIsMenuOpen(false);
-        });
+        };
+        document.addEventListener("click", handleOutsideClick);
+        return () => document.removeEventListener("click", handleOutsideClick);
     }, []);
 
     // adjust the direction of the optionsMenu based on the viewport width

@@ -33,6 +33,11 @@ const ChatProvider = ({ children }) => {
             const { data } = await axios.get(`/api/messages/${userId}`);
             if (data.success) {
                 setMessages(data.messages);
+                setUnseenMessages(prevUnseen => {
+                    const nextUnseen = { ...prevUnseen };
+                    delete nextUnseen[userId];
+                    return nextUnseen;
+                });
             }
         } catch (error) {
             toast.error(error.message || "Failed to fetch messages. Please try again.");

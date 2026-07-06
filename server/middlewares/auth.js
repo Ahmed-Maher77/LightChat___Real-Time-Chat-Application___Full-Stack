@@ -14,19 +14,22 @@ const protectedRoute = async (req, res, next) => {
     }
 
     // extract the jwt token + verify it
+    let decoded;
     try {
-        const decoded = await jwt.verify(token, process.env.JWT_SECRET);
-        // append the the user data to the request object
-        req.user = decoded;
+        decoded = await jwt.verify(token, process.env.JWT_SECRET);
     } catch (error) {
         return next(new AppError("Unauthorized: Invalid token", 401));
     }
 
     try {
-        const existingUser = await User.findById(req.user.id).select("-password").lean();
+        const existingUser = await User.findById(decoded.id).select("-password").lean();
         if (!existingUser) {
             return next(new AppError("Unauthorized: User not found", 401));
         }
+        // Map _id to id to preserve compatibility
+        existingUser.id = existingUser._id.toString();
+        // append the full user data to the request object
+        req.user = existingUser;
     } catch (error) {
         return next(new AppError("Unauthorized: Database error", 401));
     }

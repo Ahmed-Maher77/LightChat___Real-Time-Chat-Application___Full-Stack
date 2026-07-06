@@ -14,7 +14,18 @@ import { Toaster } from "react-hot-toast";
 
 
 const App = () => {
-    const { authUser } = useContext(AuthContext);
+    const { authUser, isCheckingAuth } = useContext(AuthContext);
+
+    if (isCheckingAuth) {
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-gray-950 text-white">
+                <div className="flex flex-col items-center gap-4">
+                    <div className="w-12 h-12 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin"></div>
+                    <p className="text-stone-400 text-sm font-medium tracking-wide animate-pulse">Loading LightChat...</p>
+                </div>
+            </div>
+        );
+    }
 
     const router = createBrowserRouter([
         {
